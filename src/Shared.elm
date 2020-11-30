@@ -43,7 +43,7 @@ type alias Model =
 
 init : Flags -> Url -> Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( Model url key True
+    ( Model url key False
     , Cmd.none
     )
 
@@ -85,7 +85,7 @@ view { page, toMsg } model =
     , body =
         [ div [ css [ TW.overflow_x_hidden, fontFamilies [ qt "Inter", .value sansSerif ] ] ]
             [ Components.Header.view { currentRoute = Utils.Route.fromUrl model.url, onToggleMenu = toMsg << OpenMenu, isOpenMenu = model.isOpenMenu }
-            , div [ css [ marginTop (px 20) ] ] page.body
+            , div [ css [ backgroundColor TM.grey_100 ] ] page.body
             , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
             ]
         ]
