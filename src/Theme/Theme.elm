@@ -61,6 +61,10 @@ red_50 =
     hex "FFF1EC"
 
 
+white =
+    rgba 255 255 255 1
+
+
 white_900 =
     rgba 255 255 255 0.9
 
