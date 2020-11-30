@@ -3,11 +3,11 @@ module Theme.Element exposing (Link, dropBtn, iconBtn, linkMenu, listAllMenu, lo
 import Css exposing (backgroundColor, color, disabled, focus, hover, pseudoClass)
 import Html.Styled exposing (Attribute, Html, a, button, div, img, span, styled, text)
 import Html.Styled.Attributes exposing (css, href, src)
-import Spa.Generated.Route as Route exposing (Route)
-import TW.Breakpoints exposing (atBreakpoint, lg, md)
+import Spa.Generated.Route as Router exposing (Route)
 import TW.Utilities as TW
 import Theme.Icon as TE
 import Theme.Theme as TM
+import Url as Route
 
 
 type alias Link =
@@ -66,15 +66,15 @@ logo =
 
 listAllMenu : List Link
 listAllMenu =
-    [ Link "About us" Route.NotFound
-    , Link "Features" Route.NotFound
-    , Link "Statements" Route.NotFound
-    , Link "Regulations" Route.NotFound
-    , Link "Terms and Conditions" Route.NotFound
-    , Link "User Rights" Route.NotFound
-    , Link "Financial mediator" Route.NotFound
-    , Link "Our tariffs" Route.NotFound
-    , Link "Terminals and branches" Route.NotFound
+    [ Link "About us" Router.Ui__Button
+    , Link "Features" Router.Ui__Button
+    , Link "Statements" Router.Ui__Button
+    , Link "Regulations" Router.Ui__Button
+    , Link "Terms and Conditions" Router.Ui__Button
+    , Link "User Rights" Router.Ui__Button
+    , Link "Financial mediator" Router.Ui__Button
+    , Link "Our tariffs" Router.Ui__Button
+    , Link "Terminals and branches" Router.Ui__Button
     ]
 
 
@@ -86,6 +86,6 @@ linkMenu sizeFont link =
             , TW.whitespace_nowrap
             , hover [ color TM.green ]
             ]
-        , href (Route.toString link.route)
+        , href (Router.toString link.route)
         ]
         [ text link.label ]
