@@ -33,6 +33,10 @@ grey =
     hex "8995A0"
 
 
+grey_100 =
+    hex "FAFAFB"
+
+
 grey_700 =
     hex "ACB5BD"
 
@@ -196,18 +200,25 @@ linkSmall =
         , TW.text_sm
         ]
 
+
+
 --TODO: Написать List Shadow
+
+
 shadow16 : Css.Style
 shadow16 =
     Css.property "box-shadow" "0px 0px 8px rgba(7, 28, 8, 0.06), 0px 8px 16px rgba(7, 28, 8, 0.08)"
+
 
 shadow24 : Css.Style
 shadow24 =
     Css.property "box-shadow" "px 2px 16px rgba(7, 28, 8, 0.06), 0px 12px 24px rgba(7, 28, 8, 0.08)"
 
+
 shadow32 : Css.Style
 shadow32 =
     Css.property "box-shadow" "0px 4px 24px rgba(7, 28, 8, 0.04), 0px 16px 32px rgba(7, 28, 8, 0.12)"
+
 
 shadowBtn : Css.Style
 shadowBtn =
