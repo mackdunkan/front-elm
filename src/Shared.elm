@@ -12,6 +12,7 @@ import Browser.Navigation exposing (Key)
 import Components.Footer
 import Components.Header
 import Css exposing (..)
+import Css.Global exposing (global, selector)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, src)
 import Html.Styled.Events as Event
@@ -83,9 +84,11 @@ view :
 view { page, toMsg } model =
     { title = page.title
     , body =
-        [ div [ css [ TW.overflow_x_hidden, fontFamilies [ qt "Inter", .value sansSerif ] ] ]
+        [ global
+            [ selector "body" [ backgroundColor TM.grey_100 ] ]
+        , div [ css [ TW.overflow_x_hidden, fontFamilies [ qt "Inter", .value sansSerif ] ] ]
             [ Components.Header.view { currentRoute = Utils.Route.fromUrl model.url, onToggleMenu = toMsg << OpenMenu, isOpenMenu = model.isOpenMenu }
-            , div [ css [ backgroundColor TM.grey_100 ] ] page.body
+            , div [ css [] ] page.body
             , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
             ]
         ]
