@@ -1,6 +1,6 @@
 module Components.Header exposing (view)
 
-import Css exposing (before, calc, height, maxWidth, minus, pct, px, vw, width)
+import Css exposing (before, calc, color, height, hover, maxWidth, minus, pct, px, vw, width)
 import Html.Styled exposing (Attribute, Html, a, button, div, header, styled, text)
 import Html.Styled.Attributes exposing (css, href)
 import Html.Styled.Events as Event exposing (onClick)
@@ -72,7 +72,15 @@ topMenu =
 
 linkMenu : String -> Route -> Html msg
 linkMenu name route =
-    a [ css [ TW.text_lg, TW.whitespace_nowrap ], href (Route.toString route) ] [ text name ]
+    a
+        [ css
+            [ TW.text_lg
+            , TW.whitespace_nowrap
+            , hover [ color TM.green ]
+            ]
+        , href (Route.toString route)
+        ]
+        [ text name ]
 
 
 sectionMobileMenu : Bool -> Html msg
