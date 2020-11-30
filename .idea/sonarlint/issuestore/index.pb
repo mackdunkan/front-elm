@@ -39,3 +39,5 @@ I
 src/Components/Header.elm,2\d\2d3a0206648828ade12194623456432e9b7bc154
 C
 src/Utils/Route.elm,1\5\15e1fbd5114d743a1e3aab7f11085f06bcb412d5
+I
+src/Components/Footer.elm,e\7\e7b316b45dadea67d5158cc639b1ff2c3f397e01
