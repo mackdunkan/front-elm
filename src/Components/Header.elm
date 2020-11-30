@@ -24,7 +24,7 @@ view options =
     header [ css [ TW.relative, TW.py_6, atBreakpoint [ ( xl, TW.py_16 ) ] ] ]
         [ div [ css [ TM.contentWrap ] ]
             [ div [ css [ atBreakpoint [ ( sm, TW.items_center ), ( sm, TW.space_x_16 ) ], TW.relative, TW.flex, TW.flex_row, TW.justify_between ] ]
-                [ div [ css [ atBreakpoint [ ( sm, height <| px 42 ), ( sm, TW.block ) ], stylesIfOpenMenu [ TW.hidden ] options.isOpenMenu, TW.h_8, TW.w_full ], href (Route.toString Route.Top) ] [ TE.logo ]
+                [ div [ css [ atBreakpoint [ ( sm, TW.h_11 ), ( sm, TW.block ) ], stylesIfOpenMenu [ TW.hidden ] options.isOpenMenu, TW.h_8, TW.w_full ], href (Route.toString Route.Top) ] [ TE.logo ]
                 , sectionMobileMenu options.isOpenMenu
                 , div [ css [ TW.w_full, TW.z_50, atBreakpoint [ ( lg, TW.flex ) ] ] ]
                     [ topMenu
@@ -41,46 +41,18 @@ view options =
         ]
 
 
-buttonControlMenu : Options msg -> Html msg -> Bool -> Html msg
-buttonControlMenu options icon cmd =
-    div [ css [ atBreakpoint [ ( lg, TW.hidden ) ] ] ] [ TE.iconBtn [ css [ atBreakpoint [ ( sm, TW.relative ) ], stylesIfOpenMenu [ TW.absolute, TW.right_0 ] options.isOpenMenu, TW.z_50 ], Event.onClick <| options.onToggleMenu cmd ] icon ]
-
-
-mobMenu : Html msg
-mobMenu =
-    div [ css [ TW.flex, TW.flex_col, TW.space_y_6 ] ]
-        [ linkMenu "About us" Route.NotFound
-        , linkMenu "Features" Route.NotFound
-        , linkMenu "Statements" Route.NotFound
-        , linkMenu "Regulations" Route.NotFound
-        , linkMenu "Terms and Conditions" Route.NotFound
-        , linkMenu "User Rights" Route.NotFound
-        , linkMenu "Financial mediator" Route.NotFound
-        , linkMenu "Our tariffs" Route.NotFound
-        , linkMenu "Terminals and branches" Route.NotFound
-        ]
-
-
 topMenu : Html msg
 topMenu =
     div [ css [ TW.hidden, TW.flex_row, TW.space_x_6, TW.items_center, atBreakpoint [ ( lg, TW.flex ) ] ] ]
-        [ linkMenu "Features" Route.NotFound
-        , linkMenu "About us" Route.NotFound
-        , linkMenu "Help" Route.NotFound
+        [ linkMenu TW.text_lg <| TE.Link "Features" Route.NotFound
+        , linkMenu TW.text_lg <| TE.Link "About us" Route.NotFound
+        , linkMenu TW.text_lg <| TE.Link "Help" Route.NotFound
         ]
 
 
-linkMenu : String -> Route -> Html msg
-linkMenu name route =
-    a
-        [ css
-            [ TW.text_lg
-            , TW.whitespace_nowrap
-            , hover [ color TM.green ]
-            ]
-        , href (Route.toString route)
-        ]
-        [ text name ]
+buttonControlMenu : Options msg -> Html msg -> Bool -> Html msg
+buttonControlMenu options icon cmd =
+    div [ css [ atBreakpoint [ ( lg, TW.hidden ) ] ] ] [ TE.iconBtn [ css [ atBreakpoint [ ( sm, TW.relative ) ], stylesIfOpenMenu [ TW.absolute, TW.right_0 ] options.isOpenMenu, TW.z_50 ], Event.onClick <| options.onToggleMenu cmd ] icon ]
 
 
 sectionMobileMenu : Bool -> Html msg
@@ -133,8 +105,14 @@ sectionMobileMenu isOpen =
             ]
         ]
         [ div [ css [ atBreakpoint [ ( sm, TW.mt_24 ) ], TW.flex, TW.flex_col, TW.mt_44 ] ]
-            [ mobMenu ]
+            [ mobileMenu ]
         ]
+
+
+mobileMenu : Html msg
+mobileMenu =
+    div [ css [ TW.flex, TW.flex_col, TW.space_y_6 ] ]
+        (List.map (linkMenu TW.text_lg) listAllMenu)
 
 
 headerActions : Options msg -> Html msg
