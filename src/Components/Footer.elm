@@ -31,9 +31,9 @@ view options =
             ]
             [ infoBlock
             , div [ css [ TW.relative, TW.z_10, TW.bg_white, atBreakpoint [ ( md, TW.w_1over2 ), ( md, TW.space_y_8 ) ], padding, TW.space_y_11 ] ]
-                [ bgBlockSub [ css [ TW.bg_white, TW.right_0 ] ] []
-                , logoBlock
+                [ logoBlock
                 , menuBlock
+                , bgBlockSub [ css [ TW.bg_white, TW.right_0 ] ] []
                 ]
             ]
         ]
@@ -51,11 +51,13 @@ padding =
 bgBlockSub : List (Attribute msg) -> List (Html msg) -> Html msg
 bgBlockSub =
     styled div
-        [ TW.absolute
+        [ TW.hidden
+        , TW.absolute
         , TW.inset_y_0
         , TW.h_full
         , width <| vw 50
         , zIndex <| int -1
+        , atBreakpoint [ ( sm, TW.block ) ]
         ]
 
 
@@ -86,12 +88,12 @@ infoBlock =
             , padding
             ]
         ]
-        [ bgBlockSub [ css [ backgroundColor TM.green, TW.left_0 ] ] []
-        , div [ css [ TW.relative, TW.z_10, atBreakpoint [ ( md, TW.gap_6 ), ( lg, TW.gap_12 ) ], TW.grid, TW.gap_4 ] ]
+        [ div [ css [ TW.relative, TW.z_10, atBreakpoint [ ( md, TW.gap_6 ), ( lg, TW.gap_12 ) ], TW.grid, TW.gap_4 ] ]
             [ infoItem "Phone number" <| a [ href <| "tel:" ++ phone ] [ text phone ]
             , infoItem "E-mail" <| a [ href <| "mailto:" ++ email ] [ text email ]
             , infoItem "Address" <| p [] [ text "53/66 Baghramyan street, Yerevan, Armenia" ]
             ]
+        , bgBlockSub [ css [ backgroundColor TM.green, TW.left_0 ] ] []
         ]
 
 

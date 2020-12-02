@@ -84,12 +84,26 @@ view :
 view { page, toMsg } model =
     { title = page.title
     , body =
-        [ global
-            [ selector "body" [ backgroundColor TM.grey_100 ] ]
-        , div [ css [ TW.overflow_x_hidden, fontFamilies [ qt "Inter", .value sansSerif ] ] ]
+        [ globalCss
+        , div [ css [ TW.overflow_x_hidden ] ]
             [ Components.Header.view { currentRoute = Utils.Route.fromUrl model.url, onToggleMenu = toMsg << OpenMenu, isOpenMenu = model.isOpenMenu }
             , div [ css [] ] page.body
             , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
             ]
         ]
     }
+
+
+
+-- Может двинуть в статику глобальные стили? изучить
+
+
+globalCss =
+    let
+        font =
+            fontFamilies [ qt "Inter", .value sansSerif ]
+    in
+    global
+        [ selector "body" [ backgroundColor TM.grey_100, font ]
+        , selector "input" [ font, TW.w_full ]
+        ]

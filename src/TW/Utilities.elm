@@ -21530,20 +21530,15 @@ grid_rows_none =
 
 
 
---auto_rows_auto : Css.Style
---auto_rows_auto =
---
---        Css.gridAutoRows Css.auto
---
---
---
---auto_rows_min : Css.Style
---auto_rows_min =
---
---        Css.gridAutoRows Css.minContent
---
---
---
+auto_rows_auto : Css.Style
+auto_rows_auto =
+   Css.property "grid-auto-rows" "auto"
+
+auto_rows_min : Css.Style
+auto_rows_min =
+    Css.property "grid-auto-rows" "min-content"
+
+
 --auto_rows_max : Css.Style
 --auto_rows_max =
 --

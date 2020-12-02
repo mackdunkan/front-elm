@@ -1,6 +1,6 @@
 module Theme.Theme exposing (..)
 
-import Css exposing (backgroundColor, border3, borderLeft, borderLeft3, boxShadow4, color, disabled, focus, fontFamilies, fontSize, hex, hover, margin, maxWidth, minWidth, padding, padding2, paddingLeft, px, qt, rgb, rgba, sansSerif, solid)
+import Css exposing (backgroundColor, border3, borderLeft, borderLeft3, boxShadow4, color, disabled, focus, fontFamilies, fontSize, hex, hover, lineHeight, margin, maxWidth, minWidth, padding, padding2, paddingLeft, px, qt, rgb, rgba, sansSerif, solid)
 import Css.Global exposing (descendants, typeSelector)
 import Html.Styled.Attributes exposing (class)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl, xl2)
@@ -206,7 +206,7 @@ linkSmall =
 
 
 
---TODO: Написать List Shadow
+-- ToDo list Shadow
 
 
 shadow16 : Css.Style
@@ -216,7 +216,7 @@ shadow16 =
 
 shadow24 : Css.Style
 shadow24 =
-    Css.property "box-shadow" "px 2px 16px rgba(7, 28, 8, 0.06), 0px 12px 24px rgba(7, 28, 8, 0.08)"
+    Css.property "box-shadow" "0px 2px 16px rgba(7, 28, 8, 0.06), 0px 12px 24px rgba(7, 28, 8, 0.08)"
 
 
 shadow32 : Css.Style
@@ -227,3 +227,44 @@ shadow32 =
 shadowBtn : Css.Style
 shadowBtn =
     Css.property "box-shadow" "0px 0px 4px rgba(85, 143, 74, 0.04), 0px 8px 16px rgba(85, 143, 74, 0.32)"
+
+
+h4 : Css.Style
+h4 =
+    Css.batch
+        [ fontSize <| px 32
+        , lineHeight <| px 48
+        , TW.font_black
+        ]
+
+
+h3 : Css.Style
+h3 =
+    Css.batch
+        [ fontSize <| px 48
+        , lineHeight <| px 56
+        , TW.font_black
+        ]
+
+
+h2 : Css.Style
+h2 =
+    Css.batch
+        [ fontSize <| px 64
+        , lineHeight <| px 77.5
+        , TW.font_black
+        ]
+
+
+h1 : Css.Style
+h1 =
+    Css.batch
+        [ fontSize <| px 96
+        , lineHeight <| px 104
+        , TW.font_black
+        ]
+
+
+grid_rows_3_auto : Css.Style
+grid_rows_3_auto =
+    Css.property "grid-template-rows" "repeat(3, auto)"

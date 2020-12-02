@@ -1,7 +1,7 @@
 module Theme.Element exposing (Link, dropBtn, iconBtn, linkMenu, listAllMenu, logo)
 
-import Css exposing (backgroundColor, color, disabled, focus, hover, pseudoClass)
-import Html.Styled exposing (Attribute, Html, a, button, div, img, span, styled, text)
+import Css exposing (backgroundColor, color, disabled, focus, fontSize, hover, lineHeight, pseudoClass, px)
+import Html.Styled exposing (Attribute, Html, a, button, div, h1, img, span, styled, text)
 import Html.Styled.Attributes exposing (css, href, src)
 import Spa.Generated.Route as Router exposing (Route)
 import TW.Utilities as TW

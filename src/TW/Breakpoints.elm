@@ -5,28 +5,33 @@ module TW.Breakpoints exposing
     , sm
     , xl
     , xl2
+    , xs_375
     )
 
-import Css 
+import Css
 import Css.Media
 import Regex
 import TW.Utilities
 
 
-type Breakpoint =
-  Breakpoint String
+type Breakpoint
+    = Breakpoint String
 
 
 numberRegex : Regex.Regex
 numberRegex =
     Maybe.withDefault Regex.never <| Regex.fromString "\\d+"
 
+
+
 -- Guarantees that the list of styles gets applied in "ascending " breakpoing order, so no styles get covered up by the order
 -- in which they are defined in the elm-css generated stylesheet
+
+
 atBreakpoint : List ( Breakpoint, Css.Style ) -> Css.Style
 atBreakpoint styles =
     let
-        -- convert a container style which is width: 100% into the width: <breakpoint-px> 
+        -- convert a container style which is width: 100% into the width: <breakpoint-px>
         convertContainer : String -> Css.Style -> Css.Style
         convertContainer mq style =
             if style == TW.Utilities.container then
@@ -52,23 +57,32 @@ atBreakpoint styles =
         |> List.map (\( Breakpoint mq, s ) -> Css.batch [ Css.Media.withMediaQuery [ mq ] [ convertContainer mq s ] ])
         |> Css.batch
 
-  
+
+xs_375 : Breakpoint
+xs_375 =
+    Breakpoint "(min-width: 375px)"
+
+
 sm : Breakpoint
 sm =
     Breakpoint "(min-width: 640px)"
-    
+
+
 md : Breakpoint
 md =
     Breakpoint "(min-width: 768px)"
-    
+
+
 lg : Breakpoint
 lg =
     Breakpoint "(min-width: 1024px)"
-    
+
+
 xl : Breakpoint
 xl =
     Breakpoint "(min-width: 1280px)"
-    
+
+
 xl2 : Breakpoint
 xl2 =
     Breakpoint "(min-width: 1536px)"
