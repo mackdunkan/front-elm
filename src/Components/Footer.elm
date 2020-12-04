@@ -1,6 +1,6 @@
 module Components.Footer exposing (..)
 
-import Css exposing (Color, backgroundColor, color, int, vw, width, zIndex)
+import Css exposing (Color, backgroundColor, color, int, marginTop, px, vw, width, zIndex)
 import Html.Styled exposing (Attribute, Html, a, div, footer, p, styled, text)
 import Html.Styled.Attributes exposing (css, href)
 import Spa.Generated.Route exposing (Route)
@@ -30,9 +30,11 @@ view options =
                 ]
             ]
             [ infoBlock
-            , div [ css [ TW.relative, TW.z_10, TW.bg_white, atBreakpoint [ ( md, TW.w_1over2 ), ( md, TW.space_y_8 ) ], padding, TW.space_y_11 ] ]
-                [ logoBlock
-                , menuBlock
+            , div [ css [ TW.relative, TW.z_10, TW.bg_white, atBreakpoint [ ( md, TW.w_1over2 ) ], padding ] ]
+                [ div [ css [ TW.space_y_11, atBreakpoint [ ( md, TW.space_y_8 ) ] ] ]
+                    [ logoBlock
+                    , menuBlock
+                    ]
                 , bgBlockSub [ css [ TW.bg_white, TW.right_0 ] ] []
                 ]
             ]

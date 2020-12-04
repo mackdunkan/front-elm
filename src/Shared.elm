@@ -85,7 +85,7 @@ view { page, toMsg } model =
     { title = page.title
     , body =
         [ globalCss
-        , div [ css [ TW.overflow_x_hidden ] ]
+        , div []
             [ Components.Header.view { currentRoute = Utils.Route.fromUrl model.url, onToggleMenu = toMsg << OpenMenu, isOpenMenu = model.isOpenMenu }
             , div [ css [] ] page.body
             , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
@@ -104,6 +104,6 @@ globalCss =
             fontFamilies [ qt "Inter", .value sansSerif ]
     in
     global
-        [ selector "body" [ backgroundColor TM.grey_100, font ]
+        [ selector "body" [ backgroundColor TM.grey_100, font, TW.overflow_x_hidden ]
         , selector "input" [ font, TW.w_full ]
         ]

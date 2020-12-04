@@ -1,15 +1,18 @@
 module Pages.Top exposing (Model, Msg, Params, page)
 
-import Css exposing (Style, backgroundImage, backgroundPosition, backgroundPosition2, border3, center, color, fontSize, maxWidth, property, px, right, solid, top, url, zero)
+import Arithmetic as AR exposing (isEven)
+import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition, backgroundPosition2, border3, center, color, fontSize, hover, lineHeight, maxWidth, property, px, right, solid, top, url, zero)
+import Css.Global exposing (descendants, typeSelector)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, href, placeholder, target)
+import Html.Styled.Attributes exposing (css, href, placeholder, src, target)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url exposing (Url)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl, xl2, xs_375)
 import TW.Utilities as TW
 import Theme.Icon as TI
-import Theme.Theme as TM
+import Theme.Theme as TM exposing (white)
+import Utils.Directive as DR
 
 
 type alias Params =
@@ -41,12 +44,14 @@ view { params } =
     , body =
         [ startScreen
         , div [ css [ atBreakpoint [ ( sm, TW.hidden ) ] ] ]
-            [ div [ css [ TW.bg_white, TM.contentWrap, TW.py_6 ] ]
+            [ div [ css [ TM.contentWrap, TW.py_6 ] ]
                 [ formSubscribe ]
-            , div [ css [ TW.bg_white, TM.contentWrap ] ]
+            , div [ css [ TM.contentWrap ] ]
                 [ storeBlock
                 ]
             ]
+        , div [ css [ TW.mt_14, TW.space_y_8 ] ]
+            (List.indexedMap (\i x -> sectionItem i x) sectionList)
         ]
     }
 
@@ -61,22 +66,26 @@ startScreen =
         bg : Css.Style
         bg =
             Css.batch
-                [ backgroundImage <| url "/images/bg_start-screen_home__460.png"
+                [ atBreakpoint
+                    [ ( sm, property "background-position" "center right -100px" )
+                    , ( xl, backgroundImage <| url "/images/bg_start-screen_home__940.png" )
+                    , ( xl, property "background-position" "top 160px right -160px" )
+                    ]
+                , backgroundImage <| url "/images/bg_start-screen_home__460.png"
                 , TW.bg_no_repeat
                 , property "background-position" "top 80px center"
-                , atBreakpoint [ ( sm, property "background-position" "center right -100px" ) ]
                 ]
     in
     div [ css [ TW.h_screen, TW.bg_white, TW.flex, TW.items_end, bg ] ]
-        [ div [ css [ TM.contentWrap, TW.py_6, TW.bg_gradient_to_t, TW.from_white ] ]
+        [ div [ css [ atBreakpoint [ ( sm, TW.bg_none ) ], TM.contentWrap, TW.py_6, TW.bg_gradient_to_t, TW.from_white ] ]
             [ div
                 [ css
                     [ TW.grid
                     , atBreakpoint
                         [ ( sm, TW.grid_cols_8 )
                         , ( sm, TW.gap_6 )
-                        , ( lg, TW.grid_cols_12 )
                         , ( sm, TW.gap_x_14 )
+                        , ( lg, TW.grid_cols_12 )
                         , ( lg, TW.grid_flow_col )
                         , ( lg, TM.grid_rows_3_auto )
                         , ( lg, TW.gap_y_8 )
@@ -104,8 +113,8 @@ startScreen =
                             , atBreakpoint
                                 [ ( sm, TM.h3 )
                                 , ( lg, TM.h2 )
-                                , ( lg, fontSize <| px 40 )
-                                , ( xl, TM.h1 )
+                                , ( xl, fontSize <| px 52 )
+                                , ( xl2, TM.h1 )
                                 ]
                             ]
                         ]
@@ -232,6 +241,7 @@ btnStore icon title desc path =
             , TW.rounded_2xl
             , TW.bg_white
             , maxWidth <| px 248
+            , hover [ backgroundColor TM.green, descendants [ typeSelector "div" [ color TM.white ] ] ]
             ]
         ]
         [ div [ css [ TW.w_4, atBreakpoint [ ( sm, TW.w_6 ) ] ] ] [ icon ]
@@ -242,7 +252,90 @@ btnStore icon title desc path =
         ]
 
 
+type alias Section =
+    { image : String
+    , title : String
+    , desc : String
+    , content : String
+    }
 
---section: String -> Html msg
---section image =
---    div []
+
+sectionList : List Section
+sectionList =
+    [ Section "support.png" "Support" "Get quick assistance and answers to your questions through our advanced chats" "The support staff will help with any question and no need for call or an email, all the conversation can be conducted through a user friendly chat feature."
+    , Section "statistics.png" "Statistics" "Manage your money with your inflows and outflows statistics" "Get information about your monthly incomes and spending for better budgeting and planning."
+    , Section "bank-card.png" "Bank Card" "Co-branded bank cards" "Use the co-branded cards of our bank-partner and get all the privileges of the bank."
+    ]
+
+
+sectionItem : Int -> Section -> Html msg
+sectionItem idx section =
+    let
+        pathImage =
+            "/images/content/home-page/" ++ section.image
+    in
+    div [ css [ TM.contentWrap, TW.py_6 ] ]
+        [ div
+            [ css
+                [ TW.space_y_6
+                , atBreakpoint
+                    [ ( sm, TW.flex )
+                    , ( sm, TW.flex_row )
+                    , ( sm, TW.space_y_0 )
+                    , ( sm, TW.space_x_6 )
+                    , ( sm, DR.stylesIfTrue [ TW.flex_row_reverse ] (AR.isOdd idx) )
+                    , ( lg, TW.space_x_16 )
+                    , ( xl, TW.space_x_20 )
+                    ]
+                ]
+            ]
+            [ div [ css [ atBreakpoint [ ( sm, TW.w_1over2 ) ] ] ]
+                [ img [ src pathImage, css [ TW.w_full ] ] []
+                ]
+            , div [ css [ TW.relative, atBreakpoint [ ( sm, TW.w_1over2 ), ( sm, TW.flex ), ( sm, TW.items_center ) ] ] ]
+                [ div []
+                    [ h4
+                        [ css
+                            [ TW.absolute
+                            , TM.h4
+                            , color TM.grey_300
+                            , TW.neg_mt_6
+                            , atBreakpoint
+                                [ ( sm, TM.h3 )
+                                , ( sm, TW.neg_mt_8 )
+                                , ( lg, TM.h2 )
+                                , ( lg, TW.neg_mt_12 )
+                                , ( xl, TM.h1 )
+                                , ( xl, TW.neg_mt_16 )
+                                ]
+                            ]
+                        ]
+                        [ text section.title ]
+                    , p
+                        [ css
+                            [ TW.relative
+                            , TW.text_lg
+                            , TW.font_bold
+                            , atBreakpoint
+                                [ ( sm, TW.text_2xl )
+                                , ( lg, fontSize <| px 32 )
+                                , ( lg, lineHeight <| px 48 )
+                                ]
+                            ]
+                        ]
+                        [ text section.desc ]
+                    , p
+                        [ css
+                            [ TW.mt_2
+                            , color TM.grey
+                            , atBreakpoint
+                                [ ( sm, TW.text_lg )
+                                , ( lg, TW.text_2xl )
+                                ]
+                            ]
+                        ]
+                        [ text section.content ]
+                    ]
+                ]
+            ]
+        ]
