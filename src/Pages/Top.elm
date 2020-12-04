@@ -257,14 +257,15 @@ type alias Section =
     , title : String
     , desc : String
     , content : String
+    , isComming : Bool
     }
 
 
 sectionList : List Section
 sectionList =
-    [ Section "support.png" "Support" "Get quick assistance and answers to your questions through our advanced chats" "The support staff will help with any question and no need for call or an email, all the conversation can be conducted through a user friendly chat feature."
-    , Section "statistics.png" "Statistics" "Manage your money with your inflows and outflows statistics" "Get information about your monthly incomes and spending for better budgeting and planning."
-    , Section "bank-card.png" "Bank Card" "Co-branded bank cards" "Use the co-branded cards of our bank-partner and get all the privileges of the bank."
+    [ Section "support.png" "Support" "Get quick assistance and answers to your questions through our advanced chats" "The support staff will help with any question and no need for call or an email, all the conversation can be conducted through a user friendly chat feature." False
+    , Section "statistics.png" "Statistics" "Manage your money with your inflows and outflows statistics" "Get information about your monthly incomes and spending for better budgeting and planning." False
+    , Section "bank-card.png" "Bank Card" "Co-branded bank cards" "Use the co-branded cards of our bank-partner and get all the privileges of the bank." True
     ]
 
 
@@ -273,6 +274,27 @@ sectionItem idx section =
     let
         pathImage =
             "/images/content/home-page/" ++ section.image
+
+        comingSoon =
+            case section.isComming of
+                True ->
+                    div
+                        [ css
+                            [ TW.inline_block
+                            , backgroundColor TM.grey
+                            , TW.rounded_md
+                            , TW.py_1
+                            , TW.px_3
+                            , TW.ml_4
+                            , TW.text_xs
+                            , TW.text_white
+                            , TW.whitespace_nowrap
+                            ]
+                        ]
+                        [ text "Coming Soon" ]
+
+                False ->
+                    div [] []
     in
     div [ css [ TM.contentWrap, TW.py_6 ] ]
         [ div
@@ -282,17 +304,35 @@ sectionItem idx section =
                     [ ( sm, TW.flex )
                     , ( sm, TW.flex_row )
                     , ( sm, TW.space_y_0 )
-                    , ( sm, TW.space_x_6 )
                     , ( sm, DR.stylesIfTrue [ TW.flex_row_reverse ] (AR.isOdd idx) )
-                    , ( lg, TW.space_x_16 )
-                    , ( xl, TW.space_x_20 )
                     ]
                 ]
             ]
-            [ div [ css [ atBreakpoint [ ( sm, TW.w_1over2 ) ] ] ]
+            [ div
+                [ css
+                    [ atBreakpoint
+                        [ ( sm, TW.w_1over2 )
+                        , ( sm, TW.mr_6 )
+                        , ( sm, DR.stylesIfTrue [ TW.ml_6 ] (AR.isOdd idx) )
+                        , ( lg, TW.mr_16 )
+                        , ( lg, DR.stylesIfTrue [ TW.ml_16 ] (AR.isOdd idx) )
+                        , ( xl, TW.mr_20 )
+                        , ( xl, DR.stylesIfTrue [ TW.ml_20 ] (AR.isOdd idx) )
+                        ]
+                    ]
+                ]
                 [ img [ src pathImage, css [ TW.w_full ] ] []
                 ]
-            , div [ css [ TW.relative, atBreakpoint [ ( sm, TW.w_1over2 ), ( sm, TW.flex ), ( sm, TW.items_center ) ] ] ]
+            , div
+                [ css
+                    [ TW.relative
+                    , atBreakpoint
+                        [ ( sm, TW.w_1over2 )
+                        , ( sm, TW.flex )
+                        , ( sm, TW.items_center )
+                        ]
+                    ]
+                ]
                 [ div []
                     [ h4
                         [ css
@@ -311,19 +351,21 @@ sectionItem idx section =
                             ]
                         ]
                         [ text section.title ]
-                    , p
-                        [ css
-                            [ TW.relative
-                            , TW.text_lg
-                            , TW.font_bold
-                            , atBreakpoint
-                                [ ( sm, TW.text_2xl )
-                                , ( lg, fontSize <| px 32 )
-                                , ( lg, lineHeight <| px 48 )
+                    , div [ css [ TW.relative, atBreakpoint [ ( sm, TW.flex ), ( sm, TW.items_center ) ] ] ]
+                        [ p
+                            [ css
+                                [ TW.text_lg
+                                , TW.font_bold
+                                , atBreakpoint
+                                    [ ( sm, TW.text_2xl )
+                                    , ( lg, fontSize <| px 32 )
+                                    , ( lg, lineHeight <| px 48 )
+                                    ]
                                 ]
                             ]
+                            [ text section.desc ]
+                        , comingSoon
                         ]
-                        [ text section.desc ]
                     , p
                         [ css
                             [ TW.mt_2
