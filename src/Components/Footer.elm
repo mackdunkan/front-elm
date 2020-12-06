@@ -17,7 +17,7 @@ type alias Options =
 
 view : Options -> Html msg
 view options =
-    footer []
+    footer [ css [ TW.mt_6 ] ]
         [ div
             [ css
                 [ atBreakpoint

@@ -88,6 +88,18 @@ buttonStyle =
     Css.batch [ TW.bg_blue_500, Css.hover [ TW.bg_blue_700 ], TW.text_white, TW.font_bold, TW.py_2, TW.px_4, TW.rounded ]
 
 
+pageCss : Css.Style
+pageCss =
+    Css.batch
+        [ TW.mt_20
+        , atBreakpoint
+            [ ( sm, TW.mt_24 )
+            , ( lg, TW.mt_28 )
+            , ( xl, TW.mt_32 )
+            ]
+        ]
+
+
 contentWrap : Css.Style
 contentWrap =
     Css.batch

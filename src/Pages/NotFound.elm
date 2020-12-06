@@ -1,9 +1,15 @@
 module Pages.NotFound exposing (Model, Msg, Params, page)
 
 import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css, href, src)
 import Spa.Document exposing (Document)
+import Spa.Generated.Route as Router exposing (Route)
 import Spa.Page as Page exposing (Page)
 import Spa.Url exposing (Url)
+import TW.Breakpoints exposing (atBreakpoint, sm)
+import TW.Utilities as TW
+import Theme.Element as TE
+import Theme.Theme as TM
 
 
 type alias Params =
@@ -33,6 +39,10 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "404"
     , body =
-        [ text "Not found"
+        [ TE.notPageView <|
+            TE.NotPage
+                "images/404.png"
+                "Page not found"
+                "This page does not exist or has been deleted, please check the specified link or\u{00A0}go to the main page"
         ]
     }

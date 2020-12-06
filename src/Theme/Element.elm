@@ -1,11 +1,14 @@
-module Theme.Element exposing (Link, dropBtn, iconBtn, linkMenu, listAllMenu, logo)
+module Theme.Element exposing (Link, NotPage, dropBtn, iconBtn, linkMenu, listAllMenu, logo, notPageView, pageTitleSection)
 
-import Css exposing (backgroundColor, color, disabled, focus, fontSize, hover, lineHeight, pseudoClass, px)
-import Html.Styled exposing (Attribute, Html, a, button, div, h1, img, span, styled, text)
+import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec)
+import Css.Animations exposing (keyframes, property)
+import Html.Styled exposing (Attribute, Html, a, button, div, h1, h4, img, p, span, styled, text)
 import Html.Styled.Attributes exposing (css, href, src)
+import Random
 import Spa.Generated.Route as Router exposing (Route)
+import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl)
 import TW.Utilities as TW
-import Theme.Icon as TE
+import Theme.Icon as TI
 import Theme.Theme as TM
 import Url as Route
 
@@ -32,7 +35,7 @@ styleDropBtn =
 
 dropBtn : List (Attribute msg) -> String -> Html msg
 dropBtn attr name =
-    styleDropBtn attr [ span [] [ text name ], TE.chevronCompactDown ]
+    styleDropBtn attr [ span [] [ text name ], TI.chevronCompactDown ]
 
 
 styleIconBtn : List (Attribute msg) -> List (Html msg) -> Html msg
@@ -68,9 +71,9 @@ listAllMenu : List Link
 listAllMenu =
     [ Link "About us" Router.Ui__Button
     , Link "Features" Router.Ui__Button
-    , Link "Statements" Router.Ui__Button
+    , Link "Statements" Router.Statements
     , Link "Regulations" Router.Ui__Button
-    , Link "Terms and Conditions" Router.Ui__Button
+    , Link "Terms and Conditions" Router.TermsAndConditions
     , Link "User Rights" Router.Ui__Button
     , Link "Financial mediator" Router.Ui__Button
     , Link "Our tariffs" Router.Ui__Button
@@ -89,3 +92,115 @@ linkMenu sizeFont link =
         , href (Router.toString link.route)
         ]
         [ text link.label ]
+
+
+type alias NotPage =
+    { imagePath : String
+    , title : String
+    , description : String
+    }
+
+
+notPageView : NotPage -> Html msg
+notPageView page =
+    div [ css [ TM.pageCss ] ]
+        [ div
+            [ css
+                [ TW.px_4
+                , TW.mx_auto
+                , maxWidth <| px 360
+                , TW.py_6
+                ]
+            ]
+            [ div
+                [ css
+                    [ TW.flex
+                    , TW.flex_col
+                    , TW.items_center
+                    , TW.justify_center
+                    ]
+                ]
+                [ div [ css [ TW.mb_4 ] ]
+                    [ img [ src page.imagePath, css [ TW.w_max ] ] []
+                    ]
+                , h4
+                    [ css
+                        [ TW.text_lg
+                        , TW.font_bold
+                        , TW.text_center
+                        , TW.mt_2
+                        ]
+                    ]
+                    [ text page.title ]
+                , p [ css [ TW.text_center ] ] [ text page.description ]
+                , a
+                    [ href <| Router.toString Router.Top
+                    , css
+                        [ TW.mt_6
+                        , TM.btnMedium
+                        , TW.w_full
+                        , atBreakpoint [ ( sm, TW.w_auto ) ]
+                        ]
+                    ]
+                    [ text "Go to main page" ]
+                ]
+            ]
+        ]
+
+
+pageTitleSection : String -> Html msg
+pageTitleSection title =
+    div
+        [ css
+            [ TW.relative
+            , TW.pt_32
+            , TW.pb_20
+            , backgroundColor <| hex "F7FBF7"
+            , atBreakpoint
+                [ ( sm, TW.py_36 )
+                , ( lg, TW.py_44 )
+                , ( xl, TW.py_60 )
+                ]
+            ]
+        ]
+        [ div [ css [ TM.contentWrap ] ]
+            [ h1
+                [ css
+                    [ TW.relative
+                    , TM.h4
+                    , TW.z_20
+                    , atBreakpoint
+                        [ ( sm, TM.h3 )
+                        , ( sm, TW.neg_mt_8 )
+                        , ( lg, TM.h2 )
+                        , ( xl, TM.h1 )
+                        ]
+                    ]
+                ]
+                [ text title ]
+            ]
+        , div [ css [ maxWidth <| px 1920 ] ]
+            (List.map itemLine (List.range 1 4))
+        ]
+
+
+itemLine : Int -> Html msg
+itemLine num =
+    let
+        numBottom =
+            (*) num -30
+    in
+    div
+        [ css
+            [ animationName (keyframes [ ( 0, [ property "width" "0%" ] ), ( 100, [ property "width" "100%" ] ) ])
+            , animationDuration <| sec 3
+            , animationIterationCount <| int 1
+            , TW.overflow_hidden
+            , TW.absolute
+            , TW.left_0
+            , TW.right_0
+            , bottom <| px <| toFloat numBottom
+            , TW.z_10
+            ]
+        ]
+        [ TI.line ]
