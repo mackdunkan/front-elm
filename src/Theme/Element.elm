@@ -1,11 +1,25 @@
-module Theme.Element exposing (Link, NotPage, dropBtn, iconBtn, infoItem, linkMenu, listAllMenu, logo, notPageView, pageTitleSection)
+module Theme.Element exposing
+    ( Link
+    , NotPage
+    , btnStoreAndroid
+    , btnStoreApple
+    , dropBtn
+    , iconBtn
+    , infoItem
+    , linkMenu
+    , listAllMenu
+    , logo
+    , notPageView
+    , pageTitleSection
+    )
 
-import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec)
+import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, border3, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec, solid)
 import Css.Animations exposing (keyframes, property)
+import Css.Global exposing (descendants, typeSelector)
 import Html.Styled exposing (Attribute, Html, a, button, div, h1, h4, img, p, span, styled, text)
-import Html.Styled.Attributes exposing (css, href, src)
+import Html.Styled.Attributes exposing (css, href, src, target)
 import Spa.Generated.Route as Router exposing (Route)
-import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl)
+import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
 import TW.Utilities as TW
 import Theme.Icon as TI
 import Theme.Theme as TM
@@ -72,10 +86,10 @@ listAllMenu =
     , Link "Statements" Router.Statements
     , Link "Regulations" Router.Regulation
     , Link "Terms and Conditions" Router.TermsAndConditions
-    , Link "User Rights" Router.NotFound
+    , Link "User Rights" Router.UserRights
     , Link "Financial mediator" Router.FinancialMediator
     , Link "Our tariffs" Router.OurTariffs
-    , Link "Terminals and branches" Router.NotFound
+    , Link "Terminals and branches" Router.TerminalsAndBranches
     ]
 
 
@@ -237,3 +251,41 @@ infoItem themeWhite title descHtml =
         , div [ css [ TW.text_lg, TW.font_bold, Tuple.second theme ] ]
             [ descHtml ]
         ]
+
+
+btnStore : Html msg -> String -> String -> String -> Html msg
+btnStore icon title desc path =
+    a
+        [ href path
+        , target "_blank"
+        , css
+            [ TW.flex
+            , TW.items_center
+            , TW.justify_center
+            , TW.space_x_2
+            , color TM.green
+            , TW.px_4
+            , TW.py_3_dot_5
+            , border3 (px 1) solid TM.grey_300
+            , TW.rounded_2xl
+            , TW.bg_white
+            , TW.w_full
+            , hover [ backgroundColor TM.green, descendants [ typeSelector "div" [ color TM.white ] ] ]
+            ]
+        ]
+        [ div [ css [ TW.w_4, atBreakpoint [ ( sm, TW.w_6 ) ] ] ] [ icon ]
+        , div []
+            [ div [ css [ TW.text_xs, TW.whitespace_nowrap ] ] [ text desc ]
+            , div [ css [ TW.text_xs, TW.font_semibold, TW.whitespace_nowrap ] ] [ text title ]
+            ]
+        ]
+
+
+btnStoreApple : Html msg
+btnStoreApple =
+    btnStore TI.apple "App Store" "Download on the" "https://www.apple.com/ru/app-store/"
+
+
+btnStoreAndroid : Html msg
+btnStoreAndroid =
+    btnStore TI.android "Google Play" "Get it on" "https://www.apple.com/ru/app-store/"

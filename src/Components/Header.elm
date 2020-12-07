@@ -58,7 +58,7 @@ topMenu =
     div [ css [ TW.hidden, TW.flex_row, TW.space_x_6, TW.items_center, atBreakpoint [ ( lg, TW.flex ) ] ] ]
         [ linkMenu TW.text_lg <| TE.Link "Features" Route.NotFound
         , linkMenu TW.text_lg <| TE.Link "About us" Route.NotFound
-        , linkMenu TW.text_lg <| TE.Link "Help" Route.NotFound
+        , linkMenu TW.text_lg <| TE.Link "Help" Route.Help
         ]
 
 

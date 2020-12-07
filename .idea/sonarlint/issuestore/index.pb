@@ -39,3 +39,9 @@ C
 src/Utils/Route.elm,1\5\15e1fbd5114d743a1e3aab7f11085f06bcb412d5
 I
 src/Components/Footer.elm,e\7\e7b316b45dadea67d5158cc639b1ff2c3f397e01
+O
+src/Pages/FinancialMediator.elm,a\6\a6272c5c11bab475489623d658b0beb16c0b673a
+H
+src/Pages/Regulation.elm,e\0\e00f213bd4e2381544f9a4a8d42513031260886f
+B
+src/Pages/Help.elm,b\9\b992653a34fba1f884a6b50b234087d2e3824871

@@ -10,6 +10,7 @@ import Spa.Page as Page exposing (Page)
 import Spa.Url exposing (Url)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl, xl2, xs_375)
 import TW.Utilities as TW
+import Theme.Element as TE
 import Theme.Icon as TI
 import Theme.Theme as TM exposing (white)
 import Utils.Directive as DR
@@ -144,6 +145,20 @@ startScreen =
         ]
 
 
+storeBlock : Html msg
+storeBlock =
+    div
+        [ css
+            [ TW.flex
+            , TW.justify_between
+            , atBreakpoint [ ( xs_375, TW.grid ), ( xs_375, TW.grid_cols_2 ), ( xs_375, TW.gap_4 ) ]
+            ]
+        ]
+        [ div [ css [ maxWidth <| px 248 ] ] [ TE.btnStoreAndroid ]
+        , div [ css [ maxWidth <| px 248 ] ] [ TE.btnStoreApple ]
+        ]
+
+
 btnScroll : Html msg
 btnScroll =
     div [ css [ TW.flex, TW.justify_center, TW.mt_6 ] ]
@@ -205,49 +220,6 @@ formSubscribe =
                     ]
                 ]
                 [ text "Subscribe" ]
-            ]
-        ]
-
-
-storeBlock : Html msg
-storeBlock =
-    div
-        [ css
-            [ TW.flex
-            , TW.justify_between
-            , atBreakpoint [ ( xs_375, TW.grid ), ( xs_375, TW.grid_cols_2 ), ( xs_375, TW.gap_4 ) ]
-            ]
-        ]
-        [ btnStore TI.apple "App Store" "Download on the" "https://www.apple.com/ru/app-store/"
-        , btnStore TI.android "Google Play" "Get it on" "https://www.apple.com/ru/app-store/"
-        ]
-
-
-btnStore : Html msg -> String -> String -> String -> Html msg
-btnStore icon title desc path =
-    a
-        [ href path
-        , target "_blank"
-        , css
-            [ atBreakpoint [ ( lg, maxWidth <| px 248 ) ]
-            , TW.flex
-            , TW.items_center
-            , TW.justify_center
-            , TW.space_x_2
-            , color TM.green
-            , TW.px_4
-            , TW.py_3_dot_5
-            , border3 (px 1) solid TM.grey_300
-            , TW.rounded_2xl
-            , TW.bg_white
-            , maxWidth <| px 248
-            , hover [ backgroundColor TM.green, descendants [ typeSelector "div" [ color TM.white ] ] ]
-            ]
-        ]
-        [ div [ css [ TW.w_4, atBreakpoint [ ( sm, TW.w_6 ) ] ] ] [ icon ]
-        , div []
-            [ div [ css [ TW.text_xs, TW.whitespace_nowrap ] ] [ text desc ]
-            , div [ css [ TW.text_xs, TW.font_semibold, TW.whitespace_nowrap ] ] [ text title ]
             ]
         ]
 
