@@ -1,16 +1,14 @@
-module Theme.Element exposing (Link, NotPage, dropBtn, iconBtn, linkMenu, listAllMenu, logo, notPageView, pageTitleSection)
+module Theme.Element exposing (Link, NotPage, dropBtn, iconBtn, infoItem, linkMenu, listAllMenu, logo, notPageView, pageTitleSection)
 
 import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec)
 import Css.Animations exposing (keyframes, property)
 import Html.Styled exposing (Attribute, Html, a, button, div, h1, h4, img, p, span, styled, text)
 import Html.Styled.Attributes exposing (css, href, src)
-import Random
 import Spa.Generated.Route as Router exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl)
 import TW.Utilities as TW
 import Theme.Icon as TI
 import Theme.Theme as TM
-import Url as Route
 
 
 type alias Link =
@@ -69,15 +67,15 @@ logo =
 
 listAllMenu : List Link
 listAllMenu =
-    [ Link "About us" Router.Ui__Button
-    , Link "Features" Router.Ui__Button
+    [ Link "About us" Router.NotFound
+    , Link "Features" Router.NotFound
     , Link "Statements" Router.Statements
-    , Link "Regulations" Router.Ui__Button
+    , Link "Regulations" Router.NotFound
     , Link "Terms and Conditions" Router.TermsAndConditions
-    , Link "User Rights" Router.Ui__Button
-    , Link "Financial mediator" Router.Ui__Button
-    , Link "Our tariffs" Router.Ui__Button
-    , Link "Terminals and branches" Router.Ui__Button
+    , Link "User Rights" Router.NotFound
+    , Link "Financial mediator" Router.FinancialMediator
+    , Link "Our tariffs" Router.OurTariffs
+    , Link "Terminals and branches" Router.NotFound
     ]
 
 
@@ -155,9 +153,12 @@ pageTitleSection title =
             [ TW.relative
             , TW.pt_32
             , TW.pb_20
+            , TW.mb_12
             , backgroundColor <| hex "F7FBF7"
+            , TW.overflow_hidden
             , atBreakpoint
-                [ ( sm, TW.py_36 )
+                [ ( sm, TW.pt_44 )
+                , ( sm, TW.pb_36 )
                 , ( lg, TW.py_44 )
                 , ( xl, TW.py_60 )
                 ]
@@ -179,7 +180,15 @@ pageTitleSection title =
                 ]
                 [ text title ]
             ]
-        , div [ css [ maxWidth <| px 1920 ] ]
+        , div
+            [ css
+                [ TW.absolute
+                , TW.inset_x_0
+                , TW.bottom_0
+                , maxWidth <| px 1920
+                , TW.mx_auto
+                ]
+            ]
             (List.map itemLine (List.range 1 4))
         ]
 
@@ -188,7 +197,7 @@ itemLine : Int -> Html msg
 itemLine num =
     let
         numBottom =
-            (*) num -30
+            (*) num -25
     in
     div
         [ css
@@ -204,3 +213,27 @@ itemLine num =
             ]
         ]
         [ TI.line ]
+
+
+infoItem : Bool -> String -> Html msg -> Html msg
+infoItem themeWhite title descHtml =
+    let
+        theme =
+            case themeWhite of
+                True ->
+                    ( color TM.white_600, TW.text_white )
+
+                False ->
+                    ( color TM.grey, color TM.black )
+    in
+    div
+        [ css
+            [ TW.grid
+            , TW.gap_2
+            ]
+        ]
+        [ div [ css [ TW.text_sm, Tuple.first theme ] ]
+            [ text title ]
+        , div [ css [ TW.text_lg, TW.font_bold, Tuple.second theme ] ]
+            [ descHtml ]
+        ]

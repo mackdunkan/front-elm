@@ -90,27 +90,20 @@ infoBlock =
             , padding
             ]
         ]
-        [ div [ css [ TW.relative, TW.z_10, atBreakpoint [ ( md, TW.gap_6 ), ( lg, TW.gap_12 ) ], TW.grid, TW.gap_4 ] ]
-            [ infoItem "Phone number" <| a [ href <| "tel:" ++ phone ] [ text phone ]
-            , infoItem "E-mail" <| a [ href <| "mailto:" ++ email ] [ text email ]
-            , infoItem "Address" <| p [] [ text "53/66 Baghramyan street, Yerevan, Armenia" ]
+        [ div
+            [ css
+                [ TW.relative
+                , TW.z_10
+                , atBreakpoint [ ( md, TW.gap_6 ), ( lg, TW.gap_12 ) ]
+                , TW.grid
+                , TW.gap_4
+                ]
+            ]
+            [ TE.infoItem True "Phone number" <| a [ href <| "tel:" ++ phone ] [ text phone ]
+            , TE.infoItem True "E-mail" <| a [ href <| "mailto:" ++ email ] [ text email ]
+            , TE.infoItem True "Address" <| p [] [ text "53/66 Baghramyan street, Yerevan, Armenia" ]
             ]
         , bgBlockSub [ css [ backgroundColor TM.green, TW.left_0 ] ] []
-        ]
-
-
-infoItem : String -> Html msg -> Html msg
-infoItem title descHtml =
-    div
-        [ css
-            [ TW.grid
-            , TW.gap_2
-            ]
-        ]
-        [ div [ css [ TW.text_sm, color TM.white_600 ] ]
-            [ text title ]
-        , div [ css [ TW.text_lg, TW.font_bold, TW.text_white ] ]
-            [ descHtml ]
         ]
 
 

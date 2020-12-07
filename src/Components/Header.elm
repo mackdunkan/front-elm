@@ -22,7 +22,18 @@ type alias Options msg =
 
 view : Options msg -> Html msg
 view options =
-    header [ css [ TW.fixed, TW.top_0, TW.inset_x_0, TW.w_full, TW.py_6, TW.bg_white, TW.z_40, atBreakpoint [ ( xl, TW.py_12 ) ] ] ]
+    header
+        [ css
+            [ TW.fixed
+            , TW.bg_white
+            , TW.top_0
+            , TW.inset_x_0
+            , TW.w_full
+            , TW.py_6
+            , TW.z_40
+            , atBreakpoint [ ( xl, TW.py_12 ) ]
+            ]
+        ]
         [ div [ css [ TM.contentWrap ] ]
             [ div [ css [ atBreakpoint [ ( sm, TW.items_center ), ( sm, TW.space_x_16 ) ], TW.relative, TW.flex, TW.flex_row, TW.justify_between ] ]
                 [ a [ css [ atBreakpoint [ ( sm, TW.h_11 ), ( sm, TW.block ) ], stylesIfTrue [ TW.hidden ] options.isOpenMenu, TW.h_8, TW.w_full ], href (Route.toString Route.Top) ] [ TE.logo ]
@@ -120,8 +131,16 @@ headerActions : Options msg -> Html msg
 headerActions options =
     div
         [ css
-            [ atBreakpoint [ ( sm, TW.flex_row ), ( sm, TW.space_y_0 ), ( sm, TW.flex ), ( sm, TW.justify_end ), ( sm, TW.items_center ), ( sm, TW.space_x_24 ), ( md, TW.space_x_32 ), ( lg, TW.flex_row_reverse ) ]
-            , TW.bg_white
+            [ atBreakpoint
+                [ ( sm, TW.flex_row )
+                , ( sm, TW.space_y_0 )
+                , ( sm, TW.flex )
+                , ( sm, TW.justify_end )
+                , ( sm, TW.items_center )
+                , ( sm, TW.space_x_24 )
+                , ( md, TW.space_x_32 )
+                , ( lg, TW.flex_row_reverse )
+                ]
             , TW.hidden
             , DR.stylesIfTrue [ TW.flex ] options.isOpenMenu
             , TW.flex_col
@@ -130,7 +149,16 @@ headerActions options =
             , TW.space_y_12
             ]
         ]
-        [ div [ css [ atBreakpoint [ ( sm, TW.hidden ), ( sm, stylesIfTrue [ TW.block ] options.isOpenMenu ), ( lg, TW.block ), ( lg, TW.ml_24 ) ] ] ]
+        [ div
+            [ css
+                [ atBreakpoint
+                    [ ( sm, TW.hidden )
+                    , ( sm, stylesIfTrue [ TW.block ] options.isOpenMenu )
+                    , ( lg, TW.block )
+                    , ( lg, TW.ml_24 )
+                    ]
+                ]
+            ]
             [ TE.dropBtn [] "ENG"
             ]
         , buttonOpenModalSubscribe options
