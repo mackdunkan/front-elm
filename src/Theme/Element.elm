@@ -70,7 +70,7 @@ listAllMenu =
     [ Link "About us" Router.NotFound
     , Link "Features" Router.NotFound
     , Link "Statements" Router.Statements
-    , Link "Regulations" Router.NotFound
+    , Link "Regulations" Router.Regulation
     , Link "Terms and Conditions" Router.TermsAndConditions
     , Link "User Rights" Router.NotFound
     , Link "Financial mediator" Router.FinancialMediator

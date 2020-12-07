@@ -104,6 +104,6 @@ globalCss =
             fontFamilies [ qt "Inter", .value sansSerif ]
     in
     global
-        [ selector "body" [ backgroundColor TM.grey_100, font, TW.overflow_x_hidden ]
+        [ selector "body" [ backgroundColor TM.white, font, TW.overflow_x_hidden ]
         , selector "input" [ font, TW.w_full ]
         ]
