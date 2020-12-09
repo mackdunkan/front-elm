@@ -1,15 +1,20 @@
 module Pages.Help exposing (Model, Msg, Params, page)
 
-import Css.Global exposing (descendants, typeSelector)
-import Html.Styled exposing (Html, div, h2, h4, p, text)
+import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, borderColor, hover, int, sec)
+import Css.Animations exposing (keyframes, property)
+import Css.Transitions exposing (transition)
+import Html.Styled exposing (Html, a, div, h2, h4, p, text)
 import Html.Styled.Attributes exposing (css)
+import Html.Styled.Events exposing (onClick)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
-import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
+import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl)
 import TW.Utilities as TW
 import Theme.Element as TE
+import Theme.Icon as TI
 import Theme.Theme as TM
+import Utils.Directive as DR
 
 
 page : Page Params Model Msg
@@ -30,7 +35,9 @@ type alias Params =
 
 
 type alias Model =
-    {}
+    { activeItem : Int
+    , parentItem : Int
+    }
 
 
 type alias Faq =
@@ -47,7 +54,9 @@ type alias Item =
 
 init : Url Params -> Model
 init { params } =
-    {}
+    { activeItem = 0
+    , parentItem = 0
+    }
 
 
 
@@ -55,14 +64,17 @@ init { params } =
 
 
 type Msg
-    = ReplaceMe
+    = OpenItem Int Int
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        ReplaceMe ->
-            {}
+        OpenItem parentId itemId ->
+            { model
+                | activeItem = itemId
+                , parentItem = parentId
+            }
 
 
 
@@ -101,8 +113,8 @@ view model =
                     [ text "FAQ" ]
                 ]
             ]
-        , div []
-            (List.map sectionFAQ dataFaq)
+        , div [ css [ atBreakpoint [ ( sm, TM.contentWrap ) ] ] ]
+            (List.indexedMap (\id e -> sectionFAQ model id e) dataFaq)
         ]
     }
 
@@ -148,6 +160,97 @@ sectionStore =
         ]
 
 
+sectionFAQ : Model -> Int -> Faq -> Html Msg
+sectionFAQ model sectionId f =
+    div [ css [ TW.my_8 ] ]
+        [ h4
+            [ css
+                [ TW.font_bold
+                , TW.text_lg
+                , TW.px_4
+                , atBreakpoint
+                    [ ( sm, TW.px_0 )
+                    , ( sm, TW.text_2xl )
+                    ]
+                ]
+            ]
+            [ text f.title ]
+        , div
+            [ css
+                [ TW.mt_8
+                , TW.divide_y
+                , TW.border_t
+                , TW.border_b
+                , borderColor TM.grey_300
+                , atBreakpoint
+                    []
+                ]
+            ]
+            (List.indexedMap (\idx e -> item model sectionId idx e) f.items)
+        ]
+
+
+item : Model -> Int -> Int -> Item -> Html Msg
+item model sectionId idx i =
+    let
+        isActive =
+            if model.activeItem == idx && model.parentItem == sectionId then
+                True
+
+            else
+                False
+    in
+    div [ css [ atBreakpoint [] ] ]
+        [ div
+            [ css
+                [ TW.p_4
+                , TW.flex
+                , TW.flex_row
+                , TW.justify_between
+                , TW.items_center
+                , TW.text_sm
+                , atBreakpoint
+                    [ ( sm, TW.text_lg )
+                    ]
+                ]
+            ]
+            [ div
+                [ css
+                    [ TW.font_bold
+                    ]
+                ]
+                [ text <| i.title ]
+            , div
+                [ onClick (OpenItem sectionId idx)
+                , css
+                    [ TW.cursor_pointer
+                    , TW.rounded_full
+                    , TW.transform
+                    , TW.duration_300
+                    , TW.ease_in_out
+                    , TW.rotate_0
+                    , DR.stylesIfTrue [ TW.rotate_45 ] isActive
+                    , hover [ backgroundColor TM.grey_300 ]
+                    ]
+                ]
+                [ TI.closeCurcle ]
+            ]
+        , div
+            [ css
+                [ TW.transition_all
+                , TW.max_h_0
+                , TW.duration_300
+                , TW.ease_in_out
+                , TW.delay_150
+                , TW.overflow_hidden
+                , borderColor TM.grey_300
+                , DR.stylesIfTrue [ TW.max_h_screen, TW.border_t ] isActive
+                ]
+            ]
+            [ p [ css [ TW.p_4 ] ] [ text i.content ] ]
+        ]
+
+
 dataFaq : List Faq
 dataFaq =
     [ Faq "General"
@@ -189,20 +292,3 @@ dataFaq =
             "Soon mePay will partner with banks to provide co-branded banking cards so users can fully take advantage of all types of financial services."
         ]
     ]
-
-
-sectionFAQ : Faq -> Html msg
-sectionFAQ f =
-    div []
-        [ h4 [] [ text f.title ]
-        , div []
-            (List.map item f.items)
-        ]
-
-
-item : Item -> Html msg
-item i =
-    div []
-        [ div [] [ text i.title ]
-        , div [] [ text i.content ]
-        ]
