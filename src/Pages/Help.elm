@@ -100,17 +100,7 @@ view model =
             ]
         , div [ css [ TW.mb_6 ] ]
             [ div [ css [ TM.contentWrap ] ]
-                [ h2
-                    [ css
-                        [ TW.text_2xl
-                        , TW.font_bold
-                        , atBreakpoint
-                            [ ( sm, TM.h4 )
-                            , ( lg, TM.h2 )
-                            ]
-                        ]
-                    ]
-                    [ text "FAQ" ]
+                [ TE.h4_Page "FAQ"
                 ]
             ]
         , div [ css [ atBreakpoint [ ( sm, TM.contentWrap ) ] ] ]

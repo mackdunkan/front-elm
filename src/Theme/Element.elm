@@ -5,6 +5,7 @@ module Theme.Element exposing
     , btnStoreApple
     , comingSoonLabel
     , dropBtn
+    , h4_Page
     , iconBtn
     , infoItem
     , linkMenu
@@ -17,7 +18,7 @@ module Theme.Element exposing
 import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, border3, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec, solid)
 import Css.Animations exposing (keyframes, property)
 import Css.Global exposing (descendants, typeSelector)
-import Html.Styled exposing (Attribute, Html, a, button, div, h1, h4, img, p, span, styled, text)
+import Html.Styled exposing (Attribute, Html, a, button, div, h1, h2, h4, img, p, span, styled, text)
 import Html.Styled.Attributes exposing (css, href, src, target)
 import Spa.Generated.Route as Router exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
@@ -31,6 +32,21 @@ type alias Link =
     { label : String
     , route : Route
     }
+
+
+h4_Page : String -> Html msg
+h4_Page title =
+    h2
+        [ css
+            [ TW.text_2xl
+            , TW.font_bold
+            , atBreakpoint
+                [ ( sm, TM.h4 )
+                , ( lg, TM.h2 )
+                ]
+            ]
+        ]
+        [ text title ]
 
 
 styleDropBtn : List (Attribute msg) -> List (Html msg) -> Html msg
