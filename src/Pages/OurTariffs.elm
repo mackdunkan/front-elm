@@ -39,7 +39,7 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "OurTariffs"
     , body =
-        [ TE.pageTitleSection "Our Tariffs"
+        [ TE.pageTitleSection "Our Tariffs" ""
         , div []
             (List.map section dataSections)
         ]

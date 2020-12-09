@@ -315,7 +315,7 @@ sectionItem idx section =
                                 ]
                             ]
                             [ text section.desc ]
-                        , TE.comingSoon section.isComming
+                        , TE.comingSoonLabel section.isComming
                         ]
                     , p
                         [ css

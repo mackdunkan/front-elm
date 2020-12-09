@@ -34,6 +34,6 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "TermsAndConditions"
     , body =
-        [ TE.pageTitleSection "Terms and conditions"
+        [ TE.pageTitleSection "Terms and conditions" ""
         ]
     }

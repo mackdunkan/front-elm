@@ -85,7 +85,7 @@ view : Model -> Document Msg
 view model =
     { title = "Help"
     , body =
-        [ TE.pageTitleSection "Help"
+        [ TE.pageTitleSection "Help" ""
         , div
             [ css
                 [ TW.mb_12

@@ -38,7 +38,7 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "FinancialMediator"
     , body =
-        [ TE.pageTitleSection "Financial Mediator"
+        [ TE.pageTitleSection "Financial Mediator" ""
         , div
             [ css
                 [ TW.grid

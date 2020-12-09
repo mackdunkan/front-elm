@@ -46,7 +46,7 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "Regulation"
     , body =
-        [ TE.pageTitleSection "Regulation"
+        [ TE.pageTitleSection "Regulation" ""
         , div []
             [ div [ css [ TM.contentWrap ] ]
                 [ div

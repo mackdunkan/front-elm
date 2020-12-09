@@ -74,7 +74,7 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "Features"
     , body =
-        [ TE.pageTitleSection "Features"
+        [ TE.pageTitleSection "Features" ""
         , div [ css [ atBreakpoint [ ( xl, TW.mt_24 ) ] ] ]
             (List.map sectionItem dataSection)
         ]
@@ -227,7 +227,7 @@ sectionItem section =
                                 ]
                             ]
                             [ text section.title ]
-                        , TE.comingSoon section.isComming
+                        , TE.comingSoonLabel section.isComming
                         ]
                     , p
                         [ css

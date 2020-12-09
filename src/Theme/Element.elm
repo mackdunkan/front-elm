@@ -3,7 +3,7 @@ module Theme.Element exposing
     , NotPage
     , btnStoreAndroid
     , btnStoreApple
-    , comingSoon
+    , comingSoonLabel
     , dropBtn
     , iconBtn
     , infoItem
@@ -24,6 +24,7 @@ import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
 import TW.Utilities as TW
 import Theme.Icon as TI
 import Theme.Theme as TM
+import Utils.Directive as DR
 
 
 type alias Link =
@@ -82,7 +83,7 @@ logo =
 
 listAllMenu : List Link
 listAllMenu =
-    [ Link "About us" Router.NotFound
+    [ Link "About us" Router.AboutUs
     , Link "Features" Router.Features
     , Link "Statements" Router.Statements
     , Link "Regulations" Router.Regulation
@@ -161,8 +162,19 @@ notPageView page =
         ]
 
 
-pageTitleSection : String -> Html msg
-pageTitleSection title =
+guardiansWithShortNames guardians =
+    guardians
+        |> List.map String.length
+        |> List.filter (\x -> x < 6)
+        |> List.length
+
+
+pageTitleSection : String -> String -> Html msg
+pageTitleSection title desc =
+    let
+        count_chars =
+            List.length <| String.toList title
+    in
     div
         [ css
             [ TW.relative
@@ -179,14 +191,14 @@ pageTitleSection title =
                 ]
             ]
         ]
-        [ div [ css [ TM.contentWrap ] ]
+        [ div [ css [ TM.contentWrap, TW.relative, TW.z_20 ] ]
             [ h1
                 [ css
-                    [ TW.relative
-                    , TM.h4
-                    , TW.z_20
+                    [ TM.h4
+                    , DR.stylesIfTrue [ TW.text_2xl ] <| count_chars >= 18
                     , atBreakpoint
-                        [ ( sm, TM.h3 )
+                        [ ( xs_375, TM.h4 )
+                        , ( sm, TM.h3 )
                         , ( sm, TW.neg_mt_8 )
                         , ( lg, TM.h2 )
                         , ( xl, TM.h1 )
@@ -194,6 +206,19 @@ pageTitleSection title =
                     ]
                 ]
                 [ text title ]
+            , p
+                [ css
+                    [ DR.stylesIfTrue [ TW.hidden ] <| String.isEmpty desc
+                    , TW.mt_2
+                    , TW.text_sm
+                    , atBreakpoint
+                        [ ( sm, TW.text_lg )
+                        , ( lg, TW.text_2xl )
+                        , ( lg, TW.mt_8 )
+                        ]
+                    ]
+                ]
+                [ text desc ]
             ]
         , div
             [ css
@@ -292,8 +317,8 @@ btnStoreAndroid =
     btnStore TI.android "Google Play" "Get it on" "https://www.apple.com/ru/app-store/"
 
 
-comingSoon : Bool -> Html msg
-comingSoon bool =
+comingSoonLabel : Bool -> Html msg
+comingSoonLabel bool =
     case bool of
         True ->
             div

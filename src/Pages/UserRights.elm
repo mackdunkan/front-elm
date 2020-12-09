@@ -32,5 +32,5 @@ type alias Params =
 view : Url Params -> Document Msg
 view { params } =
     { title = "UserRights"
-    , body = [ TE.pageTitleSection "User Rights" ]
+    , body = [ TE.pageTitleSection "User Rights" "" ]
     }
