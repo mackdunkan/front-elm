@@ -3,6 +3,7 @@ module Theme.Element exposing
     , NotPage
     , btnStoreAndroid
     , btnStoreApple
+    , comingSoon
     , dropBtn
     , iconBtn
     , infoItem
@@ -82,7 +83,7 @@ logo =
 listAllMenu : List Link
 listAllMenu =
     [ Link "About us" Router.NotFound
-    , Link "Features" Router.NotFound
+    , Link "Features" Router.Features
     , Link "Statements" Router.Statements
     , Link "Regulations" Router.Regulation
     , Link "Terms and Conditions" Router.TermsAndConditions
@@ -168,7 +169,7 @@ pageTitleSection title =
             , TW.pt_32
             , TW.pb_20
             , TW.mb_12
-            , backgroundColor <| hex "F7FBF7"
+            , backgroundColor TM.green_25
             , TW.overflow_hidden
             , atBreakpoint
                 [ ( sm, TW.pt_44 )
@@ -289,3 +290,26 @@ btnStoreApple =
 btnStoreAndroid : Html msg
 btnStoreAndroid =
     btnStore TI.android "Google Play" "Get it on" "https://www.apple.com/ru/app-store/"
+
+
+comingSoon : Bool -> Html msg
+comingSoon bool =
+    case bool of
+        True ->
+            div
+                [ css
+                    [ TW.inline_block
+                    , backgroundColor TM.grey
+                    , TW.rounded_md
+                    , TW.py_1
+                    , TW.px_3
+                    , TW.text_xs
+                    , TW.text_white
+                    , TW.whitespace_nowrap
+                    , atBreakpoint [ ( sm, TW.ml_4 ) ]
+                    ]
+                ]
+                [ text "Coming Soon" ]
+
+        False ->
+            div [] []

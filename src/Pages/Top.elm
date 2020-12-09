@@ -28,6 +28,15 @@ type alias Msg =
     Never
 
 
+type alias Section =
+    { image : String
+    , title : String
+    , desc : String
+    , content : String
+    , isComming : Bool
+    }
+
+
 page : Page Params Model Msg
 page =
     Page.static
@@ -52,7 +61,7 @@ view { params } =
                 ]
             ]
         , div [ css [ TW.mt_14, TW.space_y_8 ] ]
-            (List.indexedMap (\i x -> sectionItem i x) sectionList)
+            (List.indexedMap (\i x -> sectionItem i x) dataSection)
         ]
     }
 
@@ -224,17 +233,8 @@ formSubscribe =
         ]
 
 
-type alias Section =
-    { image : String
-    , title : String
-    , desc : String
-    , content : String
-    , isComming : Bool
-    }
-
-
-sectionList : List Section
-sectionList =
+dataSection : List Section
+dataSection =
     [ Section "support.png" "Support" "Get quick assistance and answers to your questions through our advanced chats" "The support staff will help with any question and no need for call or an email, all the conversation can be conducted through a user friendly chat feature." False
     , Section "statistics.png" "Statistics" "Manage your money with your inflows and outflows statistics" "Get information about your monthly incomes and spending for better budgeting and planning." False
     , Section "bank-card.png" "Bank Card" "Co-branded bank cards" "Use the co-branded cards of our bank-partner and get all the privileges of the bank." True
@@ -246,27 +246,6 @@ sectionItem idx section =
     let
         pathImage =
             "/images/content/home-page/" ++ section.image
-
-        comingSoon =
-            case section.isComming of
-                True ->
-                    div
-                        [ css
-                            [ TW.inline_block
-                            , backgroundColor TM.grey
-                            , TW.rounded_md
-                            , TW.py_1
-                            , TW.px_3
-                            , TW.ml_4
-                            , TW.text_xs
-                            , TW.text_white
-                            , TW.whitespace_nowrap
-                            ]
-                        ]
-                        [ text "Coming Soon" ]
-
-                False ->
-                    div [] []
     in
     div [ css [ TM.contentWrap, TW.py_6 ] ]
         [ div
@@ -336,7 +315,7 @@ sectionItem idx section =
                                 ]
                             ]
                             [ text section.desc ]
-                        , comingSoon
+                        , TE.comingSoon section.isComming
                         ]
                     , p
                         [ css

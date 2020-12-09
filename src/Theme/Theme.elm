@@ -13,6 +13,10 @@ green =
     hex "6BB45D"
 
 
+green_25 =
+    hex "F7FBF7"
+
+
 green_800 =
     hex "89C37D"
 
