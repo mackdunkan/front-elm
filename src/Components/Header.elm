@@ -2,7 +2,7 @@ module Components.Header exposing (view)
 
 import Css exposing (before, calc, color, height, hover, maxWidth, minus, pct, px, vw, width)
 import Html.Styled exposing (Attribute, Html, a, button, div, header, styled, text)
-import Html.Styled.Attributes exposing (css, href)
+import Html.Styled.Attributes exposing (css, disabled, href)
 import Html.Styled.Events as Event exposing (onClick)
 import Spa.Generated.Route as Route exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl)
@@ -116,14 +116,27 @@ sectionMobileMenu isOpen =
                 ]
             ]
         ]
-        [ div [ css [ atBreakpoint [ ( sm, TW.mt_24 ) ], TW.flex, TW.flex_col, TW.mt_44 ] ]
+        [ div
+            [ css
+                [ atBreakpoint [ ( sm, TW.mt_24 ) ]
+                , TW.flex
+                , TW.flex_col
+                , TW.mt_44
+                ]
+            ]
             [ mobileMenu ]
         ]
 
 
 mobileMenu : Html msg
 mobileMenu =
-    div [ css [ TW.flex, TW.flex_col, TW.space_y_6 ] ]
+    div
+        [ css
+            [ TW.flex
+            , TW.flex_col
+            , TW.space_y_6
+            ]
+        ]
         (List.map (linkMenu TW.text_lg) listAllMenu)
 
 
@@ -159,7 +172,7 @@ headerActions options =
                     ]
                 ]
             ]
-            [ TE.dropBtn [] "ENG"
+            [ TE.dropBtn [ disabled True ] "ENG"
             ]
         , buttonOpenModalSubscribe options
         ]
