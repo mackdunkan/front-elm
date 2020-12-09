@@ -39,20 +39,24 @@ view { params } =
     { title = "FinancialMediator"
     , body =
         [ TE.pageTitleSection "Financial Mediator" ""
-        , div
-            [ css
-                [ TW.grid
-                , TW.gap_6
-                , atBreakpoint [ ( lg, TW.grid_cols_2 ) ]
-                ]
-            ]
-            [ div []
-                [ div [ css [ TM.contentWrap ] ]
-                    [ section
+        , div [ css [ TM.contentWrap ] ]
+            [ div
+                [ css
+                    [ TW.grid
+                    , TW.gap_6
+                    , atBreakpoint [ ( lg, TW.grid_cols_12 ) ]
                     ]
                 ]
-            , div [ css [ TM.contentWrap ] ]
-                [ sectionInfo
+                [ div [ css [ atBreakpoint [ ( lg, TW.col_span_5 ) ] ] ] [ section ]
+                , div
+                    [ css
+                        [ atBreakpoint
+                            [ ( lg, TW.col_span_6 )
+                            , ( lg, TW.col_start_7 )
+                            ]
+                        ]
+                    ]
+                    [ sectionInfo ]
                 ]
             ]
         ]
@@ -61,7 +65,7 @@ view { params } =
 
 section : Html msg
 section =
-    div [ css [ atBreakpoint [ ( xl, TW.pr_36 ) ] ] ]
+    div []
         [ h4
             [ css
                 [ TW.text_2xl
