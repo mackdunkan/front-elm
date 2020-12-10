@@ -126,6 +126,7 @@ btn =
         [ TW.flex
         , TW.flex_row
         , TW.justify_center
+        , TW.items_center
         , TW.text_white
         , TW.cursor_pointer
         , TW.border_0
@@ -289,6 +290,11 @@ grid_rows_3_auto =
 grid_col_auto_1fr : Css.Style
 grid_col_auto_1fr =
     Css.property "grid-template-columns" "auto 1fr"
+
+
+grid_col_1fr_auto : Css.Style
+grid_col_1fr_auto =
+    Css.property "grid-template-columns" "1fr auto"
 
 
 grid_row_auto_1fr : Css.Style

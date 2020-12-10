@@ -11,6 +11,7 @@ module Shared exposing
 import Browser.Navigation exposing (Key)
 import Components.Footer
 import Components.Header
+import Components.Modal
 import Css exposing (..)
 import Css.Global exposing (global, selector)
 import Html.Styled exposing (..)
@@ -39,12 +40,13 @@ type alias Model =
     { url : Url
     , key : Key
     , isOpenMenu : Bool
+    , isOpenModal : Bool
     }
 
 
 init : Flags -> Url -> Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( Model url key False
+    ( Model url key False False
     , Cmd.none
     )
 
@@ -56,6 +58,7 @@ init flags url key =
 type Msg
     = ReplaceMe
     | OpenMenu Bool
+    | OpenModal Bool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -66,6 +69,9 @@ update msg model =
 
         OpenMenu status ->
             ( { model | isOpenMenu = status }, Cmd.none )
+
+        OpenModal status ->
+            ( { model | isOpenModal = status }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -86,9 +92,18 @@ view { page, toMsg } model =
     , body =
         [ globalCss
         , div []
-            [ Components.Header.view { currentRoute = Utils.Route.fromUrl model.url, onToggleMenu = toMsg << OpenMenu, isOpenMenu = model.isOpenMenu }
+            [ Components.Header.view
+                { currentRoute = Utils.Route.fromUrl model.url
+                , onToggleMenu = toMsg << OpenMenu
+                , isOpenMenu = model.isOpenMenu
+                , onToggleModal = toMsg << OpenModal
+                }
             , div [ css [] ] page.body
             , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
+            , Components.Modal.view
+                { onToggleModal = toMsg << OpenModal
+                , isOpenModal = model.isOpenModal
+                }
             ]
         ]
     }

@@ -16,6 +16,7 @@ import Utils.Directive as DR exposing (stylesIfTrue)
 type alias Options msg =
     { currentRoute : Route
     , onToggleMenu : Bool -> msg
+    , onToggleModal : Bool -> msg
     , isOpenMenu : Bool
     }
 
@@ -187,6 +188,6 @@ buttonOpenModalSubscribe options =
             , TM.shadowBtn
             , atBreakpoint [ ( sm, TW.w_auto ), ( sm, TW.shadow_none ) ]
             ]
-        , Event.onClick <| options.onToggleMenu False
+        , Event.onClick <| options.onToggleModal True
         ]
         [ text "Subscribe" ]

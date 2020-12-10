@@ -74,8 +74,6 @@ styleIconBtn =
         [ TW.flex
         , TW.justify_center
         , TW.items_center
-        , TW.h_8
-        , TW.w_8
         , TW.rounded_md
         , TW.cursor_pointer
         , hover [ backgroundColor TM.grey_500 ]
