@@ -284,3 +284,13 @@ h1 =
 grid_rows_3_auto : Css.Style
 grid_rows_3_auto =
     Css.property "grid-template-rows" "repeat(3, auto)"
+
+
+grid_col_auto_1fr : Css.Style
+grid_col_auto_1fr =
+    Css.property "grid-template-columns" "auto 1fr"
+
+
+grid_row_auto_1fr : Css.Style
+grid_row_auto_1fr =
+    Css.property "grid-template-rows" "auto 1fr"
