@@ -6,7 +6,7 @@ import Html.Styled.Attributes exposing (css)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
-import TW.Breakpoints exposing (atBreakpoint, sm)
+import TW.Breakpoints exposing (atBreakpoint, lg, sm)
 import TW.Utilities as TW
 import Theme.Element as TE
 import Theme.Theme as TM
@@ -40,7 +40,15 @@ view { params } =
     { title = "OurTariffs"
     , body =
         [ TE.pageTitleSection "Our Tariffs" ""
-        , div []
+        , div
+            [ css
+                [ atBreakpoint
+                    [ ( sm, TW.space_y_8 )
+                    , ( lg, TW.space_y_12 )
+                    ]
+                , TW.space_y_6
+                ]
+            ]
             (List.map section dataSections)
         ]
     }
