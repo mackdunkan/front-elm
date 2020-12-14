@@ -43,6 +43,7 @@ view { params } =
             TE.NotPage
                 "images/404.png"
                 "Page not found"
-                "This page does not exist or has been deleted, please check the specified link or\u{00A0}go to the main page"
+                "This page does not exist or has been deleted, please check the specified link or go to the main page"
+                "Go to main page"
         ]
     }

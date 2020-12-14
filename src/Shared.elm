@@ -93,20 +93,28 @@ view { page, toMsg } model =
     { title = page.title
     , body =
         [ globalCss
-        , div []
-            [ Components.Header.view
-                { currentRoute = Utils.Route.fromUrl model.url
-                , onToggleMenu = toMsg << OpenMenu
-                , isOpenMenu = model.isOpenMenu
-                , onToggleModal = toMsg << OpenModal
-                }
-            , div [ css [] ] page.body
-            , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
-            , Components.Modal.view
-                { onToggleModal = toMsg << OpenModal
-                , isOpenModal = model.isOpenModal
-                }
-            ]
+        , case model.url.path of
+            "/error" ->
+                div [ css [] ]
+                    [ Components.Header.viewErrorHeader
+                    , div [ css [] ] page.body
+                    ]
+
+            _ ->
+                div []
+                    [ Components.Header.view
+                        { currentRoute = Utils.Route.fromUrl model.url
+                        , onToggleMenu = toMsg << OpenMenu
+                        , isOpenMenu = model.isOpenMenu
+                        , onToggleModal = toMsg << OpenModal
+                        }
+                    , div [ css [] ] page.body
+                    , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
+                    , Components.Modal.view
+                        { onToggleModal = toMsg << OpenModal
+                        , isOpenModal = model.isOpenModal
+                        }
+                    ]
         ]
     }
 

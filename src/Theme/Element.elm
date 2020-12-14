@@ -127,6 +127,7 @@ type alias NotPage =
     { imagePath : String
     , title : String
     , description : String
+    , btnTitle : String
     }
 
 
@@ -174,7 +175,7 @@ notPageView page =
                         , atBreakpoint [ ( sm, TW.w_auto ) ]
                         ]
                     ]
-                    [ text "Go to main page" ]
+                    [ text page.btnTitle ]
                 ]
             ]
         ]

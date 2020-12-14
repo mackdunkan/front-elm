@@ -1,4 +1,4 @@
-module Pages.Statements exposing (Model, Msg, Params, page)
+module Pages.Error exposing (Model, Msg, Params, page)
 
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
@@ -31,13 +31,13 @@ type alias Params =
 
 view : Url Params -> Document Msg
 view { params } =
-    { title = "Statements"
+    { title = "Error"
     , body =
         [ TE.notPageView <|
             TE.NotPage
-                "images/statements.png"
-                "Not ready yet"
-                "Company statements will be available at the start of 2022."
-                "Go to main page"
+                "images/404.png"
+                "Something went wrong"
+                "Check your internet connection and try again"
+                "Reload"
         ]
     }

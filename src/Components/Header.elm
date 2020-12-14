@@ -1,4 +1,4 @@
-module Components.Header exposing (view)
+module Components.Header exposing (view, viewErrorHeader)
 
 import Css exposing (before, calc, color, height, hover, maxWidth, minus, pct, px, vw, width)
 import Html.Styled exposing (Attribute, Html, a, button, div, header, styled, text)
@@ -23,6 +23,41 @@ type alias Options msg =
 
 view : Options msg -> Html msg
 view options =
+    headerSection
+        [ logoSection options.isOpenMenu
+        , sectionMobileMenu options.isOpenMenu
+        , div [ css [ TW.w_full, TW.z_50, atBreakpoint [ ( lg, TW.flex ) ] ] ]
+            [ topMenu
+            , headerActions options
+            ]
+        , case options.isOpenMenu of
+            True ->
+                buttonControlMenu options TI.close False
+
+            False ->
+                buttonControlMenu options TI.burger True
+        ]
+
+
+logoSection : Bool -> Html msg
+logoSection isOpen =
+    a
+        [ css
+            [ atBreakpoint
+                [ ( sm, TW.h_11 )
+                , ( sm, TW.block )
+                ]
+            , stylesIfTrue [ TW.hidden ] isOpen
+            , TW.h_8
+            , TW.w_full
+            ]
+        , href (Route.toString Route.Top)
+        ]
+        [ TE.logo ]
+
+
+headerSection : List (Html msg) -> Html msg
+headerSection lh =
     header
         [ css
             [ TW.fixed
@@ -36,22 +71,26 @@ view options =
             ]
         ]
         [ div [ css [ TM.contentWrap ] ]
-            [ div [ css [ atBreakpoint [ ( sm, TW.items_center ), ( sm, TW.space_x_16 ) ], TW.relative, TW.flex, TW.flex_row, TW.justify_between ] ]
-                [ a [ css [ atBreakpoint [ ( sm, TW.h_11 ), ( sm, TW.block ) ], stylesIfTrue [ TW.hidden ] options.isOpenMenu, TW.h_8, TW.w_full ], href (Route.toString Route.Top) ] [ TE.logo ]
-                , sectionMobileMenu options.isOpenMenu
-                , div [ css [ TW.w_full, TW.z_50, atBreakpoint [ ( lg, TW.flex ) ] ] ]
-                    [ topMenu
-                    , headerActions options
+            [ div
+                [ css
+                    [ atBreakpoint
+                        [ ( sm, TW.items_center )
+                        , ( sm, TW.space_x_16 )
+                        ]
+                    , TW.relative
+                    , TW.flex
+                    , TW.flex_row
+                    , TW.justify_between
                     ]
-                , case options.isOpenMenu of
-                    True ->
-                        buttonControlMenu options TI.close False
-
-                    False ->
-                        buttonControlMenu options TI.burger True
                 ]
+                lh
             ]
         ]
+
+
+viewErrorHeader : Html msg
+viewErrorHeader =
+    headerSection [ logoSection False ]
 
 
 topMenu : Html msg
