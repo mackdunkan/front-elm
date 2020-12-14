@@ -1,7 +1,9 @@
 module Pages.Help exposing (Model, Msg, Params, page)
 
-import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, borderColor, hover, int, sec)
+import Array
+import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, borderColor, firstChild, hover, int, lastChild, sec)
 import Css.Animations exposing (keyframes, property)
+import Css.Global exposing (descendants, typeSelector)
 import Css.Transitions exposing (transition)
 import Html.Styled exposing (Html, a, div, h2, h4, p, text)
 import Html.Styled.Attributes exposing (css)
@@ -150,8 +152,37 @@ sectionStore =
         ]
 
 
+group : Int -> List a -> List (List a)
+group n l =
+    if n <= 0 then
+        case l of
+            [] ->
+                []
+
+            _ ->
+                [ l ]
+
+    else
+        case l of
+            [] ->
+                []
+
+            _ ->
+                List.take n l :: (group n <| List.drop n l)
+
+
 sectionFAQ : Model -> Int -> Faq -> Html Msg
 sectionFAQ model sectionId f =
+    let
+        arrayItems =
+            Array.fromList f.items |> Array.toIndexedList
+
+        totalItems =
+            List.length arrayItems // 2
+
+        breakIntoLists =
+            group totalItems arrayItems
+    in
     div [ css [ TW.my_8 ] ]
         [ h4
             [ css
@@ -168,29 +199,47 @@ sectionFAQ model sectionId f =
         , div
             [ css
                 [ TW.mt_8
-                , TW.divide_y
-                , TW.border_t
-                , TW.border_b
-                , borderColor TM.grey_300
                 , atBreakpoint
-                    []
+                    [ ( lg, TW.grid )
+                    , ( lg, TW.grid_cols_2 )
+                    , ( lg, TW.gap_6 )
+                    ]
                 ]
             ]
-            (List.indexedMap (\idx e -> item model sectionId idx e) f.items)
+            (List.map
+                (\i -> itemsGroup model sectionId i)
+                breakIntoLists
+            )
         ]
 
 
-item : Model -> Int -> Int -> Item -> Html Msg
-item model sectionId idx i =
+itemsGroup : Model -> Int -> List ( Int, Item ) -> Html Msg
+itemsGroup model sectionId l =
+    div
+        [ css
+            [ TW.divide_y
+            , borderColor TM.grey_300
+            ]
+        ]
+        (List.map (item model sectionId) l)
+
+
+item : Model -> Int -> ( Int, Item ) -> Html Msg
+item model sectionId i =
     let
         isActive =
-            if model.activeItem == idx && model.parentItem == sectionId then
+            if model.activeItem == Tuple.first i && model.parentItem == sectionId then
                 True
 
             else
                 False
     in
-    div [ css [ atBreakpoint [] ] ]
+    div
+        [ css
+            [ lastChild [ TW.border_b, borderColor TM.grey_300 ]
+            , firstChild [ TW.border_t, borderColor TM.grey_300 ]
+            ]
+        ]
         [ div
             [ css
                 [ TW.p_4
@@ -209,9 +258,9 @@ item model sectionId idx i =
                     [ TW.font_bold
                     ]
                 ]
-                [ text <| i.title ]
+                [ text <| (Tuple.second i).title ]
             , div
-                [ onClick (OpenItem sectionId idx)
+                [ onClick (OpenItem sectionId <| Tuple.first i)
                 , css
                     [ TW.cursor_pointer
                     , TW.rounded_full
@@ -234,10 +283,12 @@ item model sectionId idx i =
                 , TW.delay_150
                 , TW.overflow_hidden
                 , borderColor TM.grey_300
+                , TW.text_sm
                 , DR.stylesIfTrue [ TW.max_h_screen, TW.border_t ] isActive
+                , atBreakpoint [ ( sm, TW.text_lg ) ]
                 ]
             ]
-            [ p [ css [ TW.p_4 ] ] [ text i.content ] ]
+            [ p [ css [ TW.p_4 ] ] [ text (Tuple.second i).content ] ]
         ]
 
 
