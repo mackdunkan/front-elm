@@ -1,8 +1,9 @@
 module Pages.Top exposing (Model, Msg, Params, page)
 
 import Arithmetic as AR exposing (isEven)
-import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition, backgroundPosition2, border3, center, color, fontSize, hover, lineHeight, maxWidth, property, px, right, solid, top, url, zero)
-import Css.Global exposing (descendants, typeSelector)
+import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition, backgroundPosition2, backgroundSize, border3, center, color, fontSize, hover, lineHeight, maxWidth, pct, property, px, right, solid, top, url, zero)
+import Css.Global exposing (descendants, media, typeSelector)
+import Css.Media as Media exposing (all, dpi, minResolution)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, placeholder, src, target)
 import Spa.Document exposing (Document)
@@ -13,6 +14,7 @@ import TW.Utilities as TW
 import Theme.Element as TE
 import Theme.Icon as TI
 import Theme.Theme as TM exposing (white)
+import Utils.Attr as UAttr
 import Utils.Directive as DR
 
 
@@ -78,15 +80,27 @@ startScreen =
             Css.batch
                 [ atBreakpoint
                     [ ( sm, property "background-position" "center right -100px" )
-                    , ( xl, backgroundImage <| url "/images/bg_start-screen_home__940.png" )
+                    , ( sm, backgroundSize <| pct 55 )
+                    , ( lg, backgroundSize <| pct 45 )
                     , ( xl, property "background-position" "top 160px right -160px" )
                     ]
-                , backgroundImage <| url "/images/bg_start-screen_home__460.png"
+                , backgroundImage <| url "/images/bg_start-screen_home.png"
+                , backgroundSize <| pct 125
+                , Media.withMediaQuery [ "-webkit-min-device-pixel-ratio: 2", "min-resolution: 192dpi" ]
+                    [ backgroundImage <| url "/images/bg_start-screen_home@2x.png" ]
                 , TW.bg_no_repeat
                 , property "background-position" "top 80px center"
                 ]
     in
-    div [ css [ TW.h_screen, TW.bg_white, TW.flex, TW.items_end, bg ] ]
+    div
+        [ css
+            [ TW.h_screen
+            , TW.bg_white
+            , TW.flex
+            , TW.items_end
+            , bg
+            ]
+        ]
         [ div [ css [ atBreakpoint [ ( sm, TW.bg_none ) ], TM.contentWrap, TW.py_6, TW.bg_gradient_to_t, TW.from_white ] ]
             [ div
                 [ css
@@ -272,7 +286,7 @@ sectionItem idx section =
                         ]
                     ]
                 ]
-                [ img [ src pathImage, css [ TW.w_full ] ] []
+                [ img ([ css [ TW.w_full ] ] ++ UAttr.retinaImg pathImage) []
                 ]
             , div
                 [ css

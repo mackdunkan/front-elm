@@ -14,6 +14,7 @@ import Components.Header
 import Components.Modal
 import Css exposing (..)
 import Css.Global exposing (global, selector)
+import Css.ModernNormalize as ModernNormalize
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, src)
 import Html.Styled.Events as Event
@@ -81,6 +82,7 @@ subscriptions model =
 
 
 -- VIEW
+-- TODO added ModernNormalize.globalStyledHtml
 
 
 view :
@@ -113,6 +115,7 @@ view { page, toMsg } model =
 -- Может двинуть в статику глобальные стили? изучить
 
 
+globalCss : Html.Styled.Html msg
 globalCss =
     let
         font =

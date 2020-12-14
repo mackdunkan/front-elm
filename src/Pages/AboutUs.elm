@@ -11,6 +11,7 @@ import TW.Breakpoints exposing (atBreakpoint, lg, sm)
 import TW.Utilities as TW
 import Theme.Element as TE
 import Theme.Theme as TM
+import Utils.Attr as UAttr
 import Utils.Directive as DR
 
 
@@ -302,7 +303,7 @@ sectionStart =
                         ]
                     ]
                 ]
-                [ img [ css [ TW.max_w_full, TW.mx_auto ], src "/images/content/aboutUs/app.png" ] []
+                [ img ([ css [ TW.max_w_full, TW.mx_auto ] ] ++ UAttr.retinaImg "/images/content/aboutUs/app.png") []
                 ]
             , div
                 [ css

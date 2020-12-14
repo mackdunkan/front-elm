@@ -19,12 +19,13 @@ import Css exposing (animationDuration, animationIterationCount, animationName, 
 import Css.Animations exposing (keyframes, property)
 import Css.Global exposing (descendants, typeSelector)
 import Html.Styled exposing (Attribute, Html, a, button, div, h1, h2, h4, img, p, span, styled, text)
-import Html.Styled.Attributes exposing (css, href, src, target)
+import Html.Styled.Attributes exposing (attribute, css, href, src, target)
 import Spa.Generated.Route as Router exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
 import TW.Utilities as TW
 import Theme.Icon as TI
 import Theme.Theme as TM
+import Utils.Attr as UAttr
 import Utils.Directive as DR
 
 
@@ -149,7 +150,10 @@ notPageView page =
                     ]
                 ]
                 [ div [ css [ TW.mb_4 ] ]
-                    [ img [ src page.imagePath, css [ TW.w_max ] ] []
+                    --[ img [ src page.imagePath, css [ TW.w_max ] ] []
+                    [ img
+                        ([ css [ TW.w_max ] ] ++ UAttr.retinaImg page.imagePath)
+                        []
                     ]
                 , h4
                     [ css
@@ -238,8 +242,8 @@ pageTitleSection title desc =
             [ css
                 [ TW.absolute
                 , TW.inset_x_0
-                , TW.bottom_0
-                , maxWidth <| px 1920
+                , bottom <| px -145
+                , maxWidth <| px 2244
                 , TW.mx_auto
                 ]
             ]

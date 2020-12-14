@@ -10,6 +10,7 @@ import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl)
 import TW.Utilities as TW
 import Theme.Element as TE
 import Theme.Theme as TM
+import Utils.Attr as UAttr
 import Utils.Directive as DR
 
 
@@ -127,7 +128,7 @@ sectionItem section =
     let
         image : Image -> Html msg
         image i =
-            img [ src <| "/images/content/features/" ++ i.name, css [ positionX i.position ] ] []
+            img ([ css [ positionX i.position ] ] ++ (UAttr.retinaImg <| "/images/content/features/" ++ i.name)) []
 
         bgCube =
             div
