@@ -14,16 +14,11 @@ import Components.Header
 import Components.Modal
 import Css exposing (..)
 import Css.Global exposing (global, selector)
-import Css.ModernNormalize as ModernNormalize
-import Html.Styled exposing (..)
+import Html.Events.Extra.Wheel as Wheel
+import Html.Styled exposing (div)
 import Html.Styled.Attributes exposing (css, href, src)
-import Html.Styled.Events as Event
 import Spa.Document exposing (Document)
-import Spa.Generated.Route as Route exposing (Route)
-import TW.Breakpoints exposing (atBreakpoint, sm, xl)
 import TW.Utilities as TW
-import Theme.Element as TE
-import Theme.Icon as TI
 import Theme.Theme as TM
 import Url exposing (Url)
 import Utils.Route
@@ -42,12 +37,13 @@ type alias Model =
     , key : Key
     , isOpenMenu : Bool
     , isOpenModal : Bool
+    , isOpenLang : Bool
     }
 
 
 init : Flags -> Url -> Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( Model url key False False
+    ( Model url key False False False
     , Cmd.none
     )
 
@@ -60,6 +56,7 @@ type Msg
     = ReplaceMe
     | OpenMenu Bool
     | OpenModal Bool
+    | OpenLang Bool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -68,11 +65,14 @@ update msg model =
         ReplaceMe ->
             ( model, Cmd.none )
 
-        OpenMenu status ->
-            ( { model | isOpenMenu = status }, Cmd.none )
+        OpenMenu bool ->
+            ( { model | isOpenMenu = bool }, Cmd.none )
 
-        OpenModal status ->
-            ( { model | isOpenModal = status }, Cmd.none )
+        OpenModal bool ->
+            ( { model | isOpenModal = bool }, Cmd.none )
+
+        OpenLang bool ->
+            ( { model | isOpenLang = bool }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -106,9 +106,11 @@ view { page, toMsg } model =
                         { currentRoute = Utils.Route.fromUrl model.url
                         , onToggleMenu = toMsg << OpenMenu
                         , isOpenMenu = model.isOpenMenu
+                        , isOpenLang = model.isOpenLang
                         , onToggleModal = toMsg << OpenModal
+                        , onToggleLang = toMsg << OpenLang
                         }
-                    , div [ css [] ] page.body
+                    , div [] page.body
                     , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
                     , Components.Modal.view
                         { onToggleModal = toMsg << OpenModal

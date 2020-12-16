@@ -553,3 +553,46 @@ pre {
     width: 100%
   }
 }
+
+
+@-moz-document url-prefix() {
+  .scrollbar-y,
+  .scrollbar-x,
+  .ngScrollbar{
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.24) transparent;
+    border-radius: 10px;
+  }
+}
+
+.scrollbar-x::-webkit-scrollbar,
+.scrollbar-y::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-x::-webkit-scrollbar-thumb,
+.scrollbar-y::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.24);
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: paddibox;
+}
+
+.scrollbar-x::-webkit-scrollbar-track,
+.scrollbar-y::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.scrollbar-x::-webkit-scrollbar-track:hover,
+.scrollbar-y::-webkit-scrollbar-track:hover {
+  background: rgba(0,0,0,0.24);
+}
+
+.scrollbar-x::-webkit-scrollbar-corner,
+.scrollbar-y::-webkit-scrollbar-corner {
+  opacity: 0;
+}

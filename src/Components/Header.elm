@@ -1,15 +1,16 @@
 module Components.Header exposing (view, viewErrorHeader)
 
-import Css exposing (before, calc, color, height, hover, maxWidth, minus, pct, px, vw, width)
-import Html.Styled exposing (Attribute, Html, a, button, div, header, styled, text)
-import Html.Styled.Attributes exposing (css, disabled, href)
+import Css exposing (backgroundColor, before, borderColor, calc, color, firstChild, focus, height, hover, int, maxHeight, maxWidth, minus, num, opacity, pct, px, vw, width)
+import Css.Global exposing (descendants, typeSelector)
+import Html.Styled exposing (Attribute, Html, a, button, div, header, li, styled, text, ul)
+import Html.Styled.Attributes exposing (class, css, disabled, href)
 import Html.Styled.Events as Event exposing (onClick)
 import Spa.Generated.Route as Route exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl)
 import TW.Utilities as TW
 import Theme.Element as TE exposing (..)
 import Theme.Icon as TI
-import Theme.Theme as TM
+import Theme.Theme as TM exposing (white)
 import Utils.Directive as DR exposing (stylesIfTrue)
 
 
@@ -17,7 +18,9 @@ type alias Options msg =
     { currentRoute : Route
     , onToggleMenu : Bool -> msg
     , onToggleModal : Bool -> msg
+    , onToggleLang : Bool -> msg
     , isOpenMenu : Bool
+    , isOpenLang : Bool
     }
 
 
@@ -59,7 +62,8 @@ logoSection isOpen =
 headerSection : List (Html msg) -> Html msg
 headerSection lh =
     header
-        [ css
+        [ class "header"
+        , css
             [ TW.fixed
             , TW.bg_white
             , TW.top_0
@@ -204,7 +208,8 @@ headerActions options =
         ]
         [ div
             [ css
-                [ atBreakpoint
+                [ TW.relative
+                , atBreakpoint
                     [ ( sm, TW.hidden )
                     , ( sm, stylesIfTrue [ TW.block ] options.isOpenMenu )
                     , ( lg, TW.block )
@@ -212,9 +217,74 @@ headerActions options =
                     ]
                 ]
             ]
-            [ TE.dropBtn [ disabled True ] "ENG"
+            [ TE.dropBtn [ disabled False, Event.onClick <| options.onToggleLang <| not options.isOpenLang ] "ENG"
+            , langMenu options.isOpenLang
             ]
         , buttonOpenModalSubscribe options
+        ]
+
+
+langMenu : Bool -> Html msg
+langMenu isOpen =
+    let
+        btnStyl =
+            Css.batch
+                [ TW.w_full
+                , TW.text_left
+                , TW.py_2
+                , TW.px_4
+                , TW.text_lg
+                , focus [ TW.outline_none ]
+                ]
+
+        itemLi : Bool -> String -> Html msg
+        itemLi bool val =
+            case bool of
+                True ->
+                    li [ css [ btnStyl, color TM.green ] ] [ text val ]
+
+                False ->
+                    li []
+                        [ button
+                            [ css
+                                [ btnStyl, hover [ backgroundColor TM.grey_300 ] ]
+                            ]
+                            [ text val ]
+                        ]
+    in
+    div
+        [ css
+            [ TW.absolute
+            , TW.left_0
+            , TW.mt_2
+            , TW.w_56
+            , TW.rounded_md
+            , TM.shadow16
+            , TW.z_10
+            , TW.hidden
+            , DR.stylesIfTrue [ TW.block ] isOpen
+            , atBreakpoint
+                [ ( lg, TW.right_0 )
+                , ( lg, TW.left_auto )
+                ]
+            ]
+        ]
+        [ div
+            [ class "scrollbar-y"
+            , css
+                [ TW.rounded_md
+                , TW.bg_white
+                , TW.space_y_2
+                , TW.overflow_hidden
+                , maxHeight <| px 240
+                , TW.overflow_y_auto
+                ]
+            ]
+            [ ul [ css [] ]
+                [ itemLi True "ENG"
+                , itemLi False "ENG"
+                ]
+            ]
         ]
 
 
