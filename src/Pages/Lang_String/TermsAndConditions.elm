@@ -1,5 +1,6 @@
-module Pages.Statements exposing (Model, Msg, Params, page)
+module Pages.Lang_String.TermsAndConditions exposing (Model, Msg, Params, page)
 
+import Html.Styled exposing (div)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
@@ -26,18 +27,13 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg
 view { params } =
-    { title = "Statements"
+    { title = "TermsAndConditions"
     , body =
-        [ TE.notPageView <|
-            TE.NotPage
-                "images/statements.png"
-                "Not ready yet"
-                "Company statements will be available at the start of 2022."
-                "Go to main page"
+        [ TE.pageTitleSection "Terms and conditions" ""
         ]
     }

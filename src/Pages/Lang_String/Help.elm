@@ -1,4 +1,4 @@
-module Pages.Help exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Help exposing (Model, Msg, Params, page)
 
 import Array
 import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, borderColor, firstChild, hover, int, lastChild, sec)
@@ -33,7 +33,7 @@ page =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 type alias Model =

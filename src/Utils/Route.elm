@@ -15,4 +15,4 @@ navigate key route =
 
 fromUrl : Url -> Route
 fromUrl =
-    Route.fromUrl >> Maybe.withDefault Route.NotFound
+    Route.fromUrl >> Maybe.withDefault (Route.Lang_String__NotFound { lang = "en" })

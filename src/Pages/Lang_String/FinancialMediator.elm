@@ -1,4 +1,4 @@
-module Pages.FinancialMediator exposing (Model, Msg, Params, page)
+module Pages.Lang_String.FinancialMediator exposing (Model, Msg, Params, page)
 
 import Html.Styled exposing (Html, a, div, h4, p, text)
 import Html.Styled.Attributes exposing (css, href, target)
@@ -31,7 +31,7 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

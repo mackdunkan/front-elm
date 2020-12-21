@@ -1,4 +1,4 @@
-module Pages.TerminalsAndBranches exposing (Model, Msg, Params, page)
+module Pages.Lang_String.TerminalsAndBranches exposing (Model, Msg, Params, page)
 
 import Css exposing (backgroundColor, before, borderColor, checked, color, maxWidth, px)
 import Css.Global as Global exposing (adjacentSiblings, typeSelector)
@@ -34,7 +34,7 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

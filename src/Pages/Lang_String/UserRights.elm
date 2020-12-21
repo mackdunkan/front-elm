@@ -1,4 +1,4 @@
-module Pages.Error exposing (Model, Msg, Params, page)
+module Pages.Lang_String.UserRights exposing (Model, Msg, Params, page)
 
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
@@ -26,18 +26,11 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg
 view { params } =
-    { title = "Error"
-    , body =
-        [ TE.notPageView <|
-            TE.NotPage
-                "images/404.png"
-                "Something went wrong"
-                "Check your internet connection and try again"
-                "Reload"
-        ]
+    { title = "UserRights"
+    , body = [ TE.pageTitleSection "User Rights" "" ]
     }

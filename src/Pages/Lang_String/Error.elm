@@ -1,6 +1,5 @@
-module Pages.TermsAndConditions exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Error exposing (Model, Msg, Params, page)
 
-import Html.Styled exposing (div)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
@@ -27,13 +26,18 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg
 view { params } =
-    { title = "TermsAndConditions"
+    { title = "Error"
     , body =
-        [ TE.pageTitleSection "Terms and conditions" ""
+        [ TE.notPageView <|
+            TE.NotPage
+                "images/404.png"
+                "Something went wrong"
+                "Check your internet connection and try again"
+                "Reload"
         ]
     }

@@ -1,4 +1,4 @@
-module Pages.Top exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Top exposing (Model, Msg, Params, page)
 
 import Arithmetic as AR exposing (isEven)
 import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition, backgroundPosition2, backgroundSize, border3, center, color, fontSize, hover, lineHeight, maxWidth, pct, property, px, right, solid, top, url, zero)
@@ -19,7 +19,7 @@ import Utils.Directive as DR
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 type alias Model =

@@ -1,4 +1,4 @@
-module Pages.Features exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Features exposing (Model, Msg, Params, page)
 
 import Css exposing (Position, backgroundColor, color, fontSize, height, int, lineHeight, px, width, zIndex)
 import Html.Styled exposing (Html, div, h4, img, p, text)
@@ -68,7 +68,7 @@ type alias Section =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

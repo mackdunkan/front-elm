@@ -54,7 +54,7 @@ logoSection isOpen =
             , TW.h_8
             , TW.w_full
             ]
-        , href (Route.toString Route.Top)
+        , href (Route.toString (Route.Lang_String__Top { lang = "en" }))
         ]
         [ TE.logo ]
 
@@ -100,9 +100,9 @@ viewErrorHeader =
 topMenu : Html msg
 topMenu =
     div [ css [ TW.hidden, TW.flex_row, TW.space_x_6, TW.items_center, atBreakpoint [ ( lg, TW.flex ) ] ] ]
-        [ linkMenu TW.text_lg <| TE.Link "Features" Route.Features
-        , linkMenu TW.text_lg <| TE.Link "About us" Route.AboutUs
-        , linkMenu TW.text_lg <| TE.Link "Help" Route.Help
+        [ linkMenu TW.text_lg <| TE.Link "Features" (Route.Lang_String__Features { lang = "en" })
+        , linkMenu TW.text_lg <| TE.Link "About us" (Route.Lang_String__AboutUs { lang = "en" })
+        , linkMenu TW.text_lg <| TE.Link "Help" (Route.Lang_String__Help { lang = "en" })
         ]
 
 

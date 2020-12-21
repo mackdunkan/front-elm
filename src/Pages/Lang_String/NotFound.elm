@@ -1,4 +1,4 @@
-module Pages.NotFound exposing (Model, Msg, Params, page)
+module Pages.Lang_String.NotFound exposing (Model, Msg, Params, page)
 
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, src)
@@ -13,7 +13,7 @@ import Theme.Theme as TM
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 type alias Model =

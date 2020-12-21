@@ -1,4 +1,4 @@
-module Pages.Regulation exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Regulation exposing (Model, Msg, Params, page)
 
 import Css exposing (backgroundColor)
 import Html.Styled exposing (Html, a, div, h2, p, span, text)
@@ -39,7 +39,7 @@ type alias Item =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

@@ -1,4 +1,4 @@
-module Pages.AboutUs exposing (Model, Msg, Params, page)
+module Pages.Lang_String.AboutUs exposing (Model, Msg, Params, page)
 
 import Arithmetic as AR
 import Css exposing (auto, backgroundColor, borderColor, calc, color, height, margin4, marginTop, minHeight, minus, pct, plus, px, width)
@@ -42,7 +42,7 @@ type alias RoadItem =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

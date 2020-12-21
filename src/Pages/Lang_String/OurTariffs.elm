@@ -1,4 +1,4 @@
-module Pages.OurTariffs exposing (Model, Msg, Params, page)
+module Pages.Lang_String.OurTariffs exposing (Model, Msg, Params, page)
 
 import Css exposing (color)
 import Html.Styled exposing (Html, div, text)
@@ -32,7 +32,7 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg

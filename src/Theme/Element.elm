@@ -98,15 +98,15 @@ logo =
 
 listAllMenu : List Link
 listAllMenu =
-    [ Link "About us" Router.AboutUs
-    , Link "Features" Router.Features
-    , Link "Statements" Router.Statements
-    , Link "Regulations" Router.Regulation
-    , Link "Terms and Conditions" Router.TermsAndConditions
-    , Link "User Rights" Router.UserRights
-    , Link "Financial mediator" Router.FinancialMediator
-    , Link "Our tariffs" Router.OurTariffs
-    , Link "Terminals and branches" Router.TerminalsAndBranches
+    [ Link "About us" (Router.Lang_String__AboutUs { lang = "en" })
+    , Link "Features" (Router.Lang_String__Features { lang = "en" })
+    , Link "Statements" (Router.Lang_String__Statements { lang = "en" })
+    , Link "Regulations" (Router.Lang_String__Regulation { lang = "en" })
+    , Link "Terms and Conditions" (Router.Lang_String__TermsAndConditions { lang = "en" })
+    , Link "User Rights" (Router.Lang_String__UserRights { lang = "en" })
+    , Link "Financial mediator" (Router.Lang_String__FinancialMediator { lang = "en" })
+    , Link "Our tariffs" (Router.Lang_String__OurTariffs { lang = "en" })
+    , Link "Terminals and branches" (Router.Lang_String__TerminalsAndBranches { lang = "en" })
     ]
 
 
@@ -167,7 +167,7 @@ notPageView page =
                     [ text page.title ]
                 , p [ css [ TW.text_center ] ] [ text page.description ]
                 , a
-                    [ href <| Router.toString Router.Top
+                    [ href <| Router.toString (Router.Lang_String__Top { lang = "en" })
                     , css
                         [ TW.mt_6
                         , TM.btnMedium

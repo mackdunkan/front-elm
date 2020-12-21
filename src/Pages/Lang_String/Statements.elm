@@ -1,4 +1,4 @@
-module Pages.UserRights exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Statements exposing (Model, Msg, Params, page)
 
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
@@ -26,11 +26,18 @@ type alias Msg =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 view : Url Params -> Document Msg
 view { params } =
-    { title = "UserRights"
-    , body = [ TE.pageTitleSection "User Rights" "" ]
+    { title = "Statements"
+    , body =
+        [ TE.notPageView <|
+            TE.NotPage
+                "images/statements.png"
+                "Not ready yet"
+                "Company statements will be available at the start of 2022."
+                "Go to main page"
+        ]
     }

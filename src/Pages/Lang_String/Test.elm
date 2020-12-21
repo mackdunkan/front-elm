@@ -1,4 +1,4 @@
-module Pages.Test exposing (Model, Msg, Params, page)
+module Pages.Lang_String.Test exposing (Model, Msg, Params, page)
 
 import Css exposing (padding2, px)
 import Html.Styled exposing (Html, div, text)
@@ -23,7 +23,7 @@ page =
 
 
 type alias Params =
-    ()
+    { lang : String }
 
 
 type alias Model =
