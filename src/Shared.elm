@@ -13,7 +13,7 @@ import Components.Footer
 import Components.Header
 import Components.Modal
 import Css exposing (..)
-import Css.Global exposing (global, selector)
+import Css.Global exposing (class, global, selector, typeSelector, withClass)
 import Html.Events.Extra.Wheel as Wheel
 import Html.Styled exposing (div)
 import Html.Styled.Attributes exposing (css, href, src)
@@ -133,5 +133,5 @@ globalCss =
     in
     global
         [ selector "body" [ backgroundColor TM.white, font, TW.overflow_x_hidden ]
-        , selector "input" [ font, TW.w_full ]
+        , selector "input" [ font, TW.w_full, focus [ borderColor TM.grey_700, TW.outline_none ] ]
         ]

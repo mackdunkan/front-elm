@@ -1,6 +1,6 @@
 module Theme.Theme exposing (..)
 
-import Css exposing (backgroundColor, border3, borderLeft, borderLeft3, boxShadow4, color, disabled, focus, fontFamilies, fontSize, hex, hover, lineHeight, margin, maxWidth, minWidth, padding, padding2, paddingLeft, px, qt, rgb, rgba, sansSerif, solid)
+import Css exposing (backgroundColor, border3, borderColor, borderLeft, borderLeft3, boxShadow4, color, disabled, focus, fontFamilies, fontSize, hex, hover, lineHeight, margin, maxWidth, minWidth, padding, padding2, paddingLeft, pseudoClass, px, qt, rgb, rgba, sansSerif, solid)
 import Css.Global exposing (descendants, typeSelector)
 import Html.Styled.Attributes exposing (class)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl, xl2)
@@ -282,6 +282,15 @@ h1 =
         ]
 
 
+inputError : Css.Style
+inputError =
+    Css.batch
+        [ borderColor red
+        , backgroundColor red_50
+        , TW.placeholder_current
+        ]
+
+
 grid_rows_3_auto : Css.Style
 grid_rows_3_auto =
     Css.property "grid-template-rows" "repeat(3, auto)"
@@ -300,3 +309,8 @@ grid_col_1fr_auto =
 grid_row_auto_1fr : Css.Style
 grid_row_auto_1fr =
     Css.property "grid-template-rows" "auto 1fr"
+
+
+grid_row_1fr_auto : Css.Style
+grid_row_1fr_auto =
+    Css.property "grid-template-rows" "1fr auto "

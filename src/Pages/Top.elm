@@ -5,7 +5,7 @@ import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition
 import Css.Global exposing (descendants, media, typeSelector)
 import Css.Media as Media exposing (all, dpi, minResolution)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, href, placeholder, src, target)
+import Html.Styled.Attributes exposing (class, css, href, placeholder, src, target)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url exposing (Url)
@@ -93,77 +93,101 @@ startScreen =
                 ]
     in
     div
-        [ css
+        [ class "startScreen"
+        , css
             [ TW.h_screen
             , TW.bg_white
-            , TW.flex
-            , TW.items_end
             , bg
+            , atBreakpoint [ ( lg, TW.items_center ) ]
             ]
         ]
-        [ div [ css [ atBreakpoint [ ( sm, TW.bg_none ) ], TM.contentWrap, TW.py_6, TW.bg_gradient_to_t, TW.from_white ] ]
+        [ div
+            [ class "container"
+            , css
+                [ atBreakpoint
+                    [ ( sm, TW.bg_none )
+                    ]
+                , TM.contentWrap
+                , TW.h_full
+                , TW.py_6
+                , TW.bg_gradient_to_t
+                , TW.from_white
+                ]
+            ]
             [ div
-                [ css
-                    [ TW.grid
-                    , atBreakpoint
-                        [ ( sm, TW.grid_cols_8 )
-                        , ( sm, TW.gap_6 )
-                        , ( sm, TW.gap_x_14 )
-                        , ( lg, TW.grid_cols_12 )
-                        , ( lg, TW.grid_flow_col )
-                        , ( lg, TM.grid_rows_3_auto )
-                        , ( lg, TW.gap_y_8 )
-                        , ( xl, TW.gap_x_8 )
-                        , ( xl, TW.gap_y_12 )
-                        ]
+                [ --   wrap
+                  css
+                    [ TW.h_full
+                    , TW.grid
+                    , TM.grid_row_1fr_auto
                     ]
                 ]
                 [ div
                     [ css
-                        [ atBreakpoint
-                            [ ( sm, TW.col_span_6 )
-                            , ( sm, TW.space_y_6 )
-                            , ( md, TW.col_span_5 )
-                            , ( lg, TW.col_span_8 )
-                            , ( xl, TW.space_y_12 )
-                            , ( xl2, TW.col_span_7 )
+                        [ TW.grid
+                        , TW.items_end
+                        , atBreakpoint
+                            [ ( sm, TW.grid_cols_8 )
+                            , ( sm, TW.gap_6 )
+                            , ( sm, TW.gap_x_14 )
+                            , ( sm, TW.auto_rows_min )
+                            , ( sm, TW.self_center )
+                            , ( lg, TW.grid_cols_12 )
+                            , ( lg, TW.grid_flow_col )
+                            , ( lg, TM.grid_rows_3_auto )
+                            , ( lg, TW.gap_y_8 )
+                            , ( xl, TW.gap_x_8 )
+                            , ( xl, TW.gap_y_12 )
                             ]
-                        , TW.space_y_2
                         ]
                     ]
-                    [ h1
+                    [ div
                         [ css
-                            [ TM.h4
-                            , atBreakpoint
-                                [ ( sm, TM.h3 )
-                                , ( lg, TM.h2 )
-                                , ( xl, fontSize <| px 52 )
-                                , ( xl2, TM.h1 )
+                            [ atBreakpoint
+                                [ ( sm, TW.col_span_6 )
+                                , ( sm, TW.space_y_6 )
+                                , ( md, TW.col_span_5 )
+                                , ( lg, TW.col_span_8 )
+                                , ( xl, TW.space_y_12 )
+                                , ( xl2, TW.col_span_7 )
+                                ]
+                            , TW.space_y_2
+                            ]
+                        ]
+                        [ h1
+                            [ css
+                                [ TM.h4
+                                , atBreakpoint
+                                    [ ( sm, TM.h3 )
+                                    , ( lg, TM.h2 )
+                                    , ( xl, fontSize <| px 52 )
+                                    , ( xl2, TM.h1 )
+                                    ]
                                 ]
                             ]
-                        ]
-                        [ text "Enjoyable finance for everyone" ]
-                    , p
-                        [ css
-                            [ TW.text_sm
-                            , color TM.grey
-                            , TW.leading_6
-                            , atBreakpoint
-                                [ ( sm, TW.text_lg )
-                                , ( lg, TW.text_2xl )
+                            [ text "Enjoyable finance for everyone" ]
+                        , p
+                            [ css
+                                [ TW.text_sm
+                                , color TM.grey
+                                , TW.leading_6
+                                , atBreakpoint
+                                    [ ( sm, TW.text_lg )
+                                    , ( lg, TW.text_2xl )
+                                    ]
                                 ]
                             ]
+                            [ text "With ever-increasing pace of changes, we constantly need emergence of new solutions which will ease our lives. Colibri is an “everything you need in one place” solution. " ]
                         ]
-                        [ text "With ever-increasing pace of changes, we constantly need emergence of new solutions which will ease our lives. Colibri is an “everything you need in one place” solution. " ]
+                    , div [ css [ atBreakpoint [ ( sm, TW.block ), ( lg, TW.col_span_6 ) ], TW.hidden, TW.col_span_5 ] ]
+                        [ formSubscribe
+                        ]
+                    , div [ css [ atBreakpoint [ ( sm, TW.block ), ( lg, TW.col_span_5 ), ( xl, TW.col_span_4 ) ], TW.hidden, TW.col_span_6 ] ]
+                        [ storeBlock
+                        ]
                     ]
-                , div [ css [ atBreakpoint [ ( sm, TW.block ), ( lg, TW.col_span_6 ) ], TW.hidden, TW.col_span_5 ] ]
-                    [ formSubscribe
-                    ]
-                , div [ css [ atBreakpoint [ ( sm, TW.block ), ( lg, TW.col_span_5 ), ( xl, TW.col_span_4 ) ], TW.hidden, TW.col_span_6 ] ]
-                    [ storeBlock
-                    ]
+                , btnScroll
                 ]
-            , btnScroll
             ]
         ]
 
@@ -208,8 +232,8 @@ btnScroll =
 
 formSubscribe =
     let
-        styleInput : Css.Style
-        styleInput =
+        input__subscribe : Css.Style
+        input__subscribe =
             Css.batch
                 [ TW.px_4
                 , TW.py_3
@@ -217,6 +241,7 @@ formSubscribe =
                 , TW.leading_8
                 , TM.shadow24
                 , TW.rounded_2xl
+                , TW.border
                 , atBreakpoint [ ( sm, TW.py_5 ) ]
                 ]
     in
@@ -228,7 +253,7 @@ formSubscribe =
                 , TW.relative
                 ]
             ]
-            [ input [ css [ styleInput ], placeholder "Your e-mail address" ] []
+            [ input [ class "input__subscribe", css [ input__subscribe ], placeholder "Your e-mail address" ] []
             , button
                 [ css
                     [ TM.btnMedium

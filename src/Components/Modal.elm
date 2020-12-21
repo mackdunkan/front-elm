@@ -141,5 +141,4 @@ styledInput =
         , TW.py_3_dot_5
         , TW.px_4
         , TW.text_lg
-        , focus [ borderColor TM.grey_700, TW.outline_none ]
         ]

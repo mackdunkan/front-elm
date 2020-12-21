@@ -2,7 +2,7 @@ module Pages.Regulation exposing (Model, Msg, Params, page)
 
 import Css exposing (backgroundColor)
 import Html.Styled exposing (Html, a, div, h2, p, span, text)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled.Attributes exposing (class, css)
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
@@ -107,11 +107,16 @@ view { params } =
 item : Item -> Html msg
 item i =
     div
-        [ css
+        [ class "item"
+        , css
             [ TW.p_6
             , backgroundColor TM.grey_100
             , TW.text_sm
-            , atBreakpoint [ ( sm, TW.text_lg ) ]
+            , TW.rounded_3xl
+            , atBreakpoint
+                [ ( sm, TW.text_lg )
+                , ( sm, TW.leading_9 )
+                ]
             ]
         ]
         [ p [ css [ TW.mb_2 ] ] [ text i.description ]

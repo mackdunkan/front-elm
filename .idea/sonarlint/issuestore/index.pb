@@ -45,3 +45,9 @@ H
 src/Pages/Regulation.elm,e\0\e00f213bd4e2381544f9a4a8d42513031260886f
 B
 src/Pages/Help.elm,b\9\b992653a34fba1f884a6b50b234087d2e3824871
+P
+ src/Pages/TermsAndConditions.elm,7\6\76d0f2aa7899fdc855a16c17d35c66611017ef58
+R
+"src/Pages/TerminalsAndBranches.elm,e\f\efaba35d21464743aa5a173003415ca9f523a85a
+H
+src/Components/Modal.elm,5\d\5d036635e72c5853ede903c9e40dbf7b32b4e474
