@@ -23,8 +23,6 @@ G
 src/Pages/Ui/Button.elm,8\1\81661e740bfa73d1d2354702feb14b60ca6cb7a5
 C
 src/Theme/Theme.elm,2\c\2cb938cf80b84ca065f4dc6835dcab851dc405da
-A
-src/Pages/Top.elm,8\b\8b6172300b7c97e32271f043125189b0d5b30f36
 F
 public/images/logo.svg,3\b\3b01c525575fc2aae5dcd62cf5ae85c30c207560
 A
@@ -39,15 +37,5 @@ C
 src/Utils/Route.elm,1\5\15e1fbd5114d743a1e3aab7f11085f06bcb412d5
 I
 src/Components/Footer.elm,e\7\e7b316b45dadea67d5158cc639b1ff2c3f397e01
-O
-src/Pages/FinancialMediator.elm,a\6\a6272c5c11bab475489623d658b0beb16c0b673a
-H
-src/Pages/Regulation.elm,e\0\e00f213bd4e2381544f9a4a8d42513031260886f
-B
-src/Pages/Help.elm,b\9\b992653a34fba1f884a6b50b234087d2e3824871
-P
- src/Pages/TermsAndConditions.elm,7\6\76d0f2aa7899fdc855a16c17d35c66611017ef58
-R
-"src/Pages/TerminalsAndBranches.elm,e\f\efaba35d21464743aa5a173003415ca9f523a85a
 H
 src/Components/Modal.elm,5\d\5d036635e72c5853ede903c9e40dbf7b32b4e474

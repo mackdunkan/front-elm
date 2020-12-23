@@ -1,5 +1,6 @@
 module Components.Modal exposing (view)
 
+import Components.Language exposing (Language)
 import Css exposing (borderColor, color, focus, hex, px, right, width)
 import Html.Styled exposing (Attribute, Html, button, div, h2, input, p, span, styled, text)
 import Html.Styled.Attributes exposing (class, css, form, placeholder)
@@ -14,6 +15,7 @@ import Theme.Theme as TM
 type alias Options msg =
     { onToggleModal : Bool -> msg
     , isOpenModal : Bool
+    , language : Language
     }
 
 

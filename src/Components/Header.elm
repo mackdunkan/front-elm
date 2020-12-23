@@ -1,7 +1,7 @@
 module Components.Header exposing (view, viewErrorHeader)
 
+import Components.Language as Language exposing (Language(..))
 import Css exposing (backgroundColor, before, borderColor, calc, color, firstChild, focus, height, hover, int, maxHeight, maxWidth, minus, num, opacity, pct, px, vw, width)
-import Css.Global exposing (descendants, typeSelector)
 import Html.Styled exposing (Attribute, Html, a, button, div, header, li, styled, text, ul)
 import Html.Styled.Attributes exposing (class, css, disabled, href)
 import Html.Styled.Events as Event exposing (onClick)
@@ -21,6 +21,8 @@ type alias Options msg =
     , onToggleLang : Bool -> msg
     , isOpenMenu : Bool
     , isOpenLang : Bool
+    , language : Language
+    , onSelectedLang : Language -> msg
     }
 
 
@@ -30,7 +32,7 @@ view options =
         [ logoSection options.isOpenMenu
         , sectionMobileMenu options.isOpenMenu
         , div [ css [ TW.w_full, TW.z_50, atBreakpoint [ ( lg, TW.flex ) ] ] ]
-            [ topMenu
+            [ topMenu <| Language.toString options.language
             , headerActions options
             ]
         , case options.isOpenMenu of
@@ -97,12 +99,12 @@ viewErrorHeader =
     headerSection [ logoSection False ]
 
 
-topMenu : Html msg
-topMenu =
+topMenu : String -> Html msg
+topMenu lang =
     div [ css [ TW.hidden, TW.flex_row, TW.space_x_6, TW.items_center, atBreakpoint [ ( lg, TW.flex ) ] ] ]
-        [ linkMenu TW.text_lg <| TE.Link "Features" (Route.Lang_String__Features { lang = "en" })
-        , linkMenu TW.text_lg <| TE.Link "About us" (Route.Lang_String__AboutUs { lang = "en" })
-        , linkMenu TW.text_lg <| TE.Link "Help" (Route.Lang_String__Help { lang = "en" })
+        [ linkMenu TW.text_lg <| TE.Link "Features" (Route.Lang_String__Features { lang = lang })
+        , linkMenu TW.text_lg <| TE.Link "About us" (Route.Lang_String__AboutUs { lang = lang })
+        , linkMenu TW.text_lg <| TE.Link "Help" (Route.Lang_String__Help { lang = lang })
         ]
 
 
@@ -217,15 +219,15 @@ headerActions options =
                     ]
                 ]
             ]
-            [ TE.dropBtn [ disabled False, Event.onClick <| options.onToggleLang <| not options.isOpenLang ] "ENG"
-            , langMenu options.isOpenLang
+            [ TE.dropBtn [ disabled False, Event.onClick <| options.onToggleLang <| not options.isOpenLang ] <| Language.toString options.language
+            , langMenu options
             ]
         , buttonOpenModalSubscribe options
         ]
 
 
-langMenu : Bool -> Html msg
-langMenu isOpen =
+langMenu : Options msg -> Html msg
+langMenu options =
     let
         btnStyl =
             Css.batch
@@ -237,19 +239,20 @@ langMenu isOpen =
                 , focus [ TW.outline_none ]
                 ]
 
-        itemLi : Bool -> String -> Html msg
+        itemLi : Bool -> Language -> Html msg
         itemLi bool val =
             case bool of
                 True ->
-                    li [ css [ btnStyl, color TM.green ] ] [ text val ]
+                    li [ css [ btnStyl, color TM.green ] ] [ text <| Language.toString options.language ]
 
                 False ->
                     li []
                         [ button
                             [ css
                                 [ btnStyl, hover [ backgroundColor TM.grey_300 ] ]
+                            , Event.onClick <| options.onSelectedLang val
                             ]
-                            [ text val ]
+                            [ text <| Language.toString val ]
                         ]
     in
     div
@@ -262,7 +265,7 @@ langMenu isOpen =
             , TM.shadow16
             , TW.z_10
             , TW.hidden
-            , DR.stylesIfTrue [ TW.block ] isOpen
+            , DR.stylesIfTrue [ TW.block ] options.isOpenLang
             , atBreakpoint
                 [ ( lg, TW.right_0 )
                 , ( lg, TW.left_auto )
@@ -281,8 +284,8 @@ langMenu isOpen =
                 ]
             ]
             [ ul [ css [] ]
-                [ itemLi True "ENG"
-                , itemLi False "ENG"
+                [ itemLi True EN
+                , itemLi False HY
                 ]
             ]
         ]

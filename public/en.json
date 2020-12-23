@@ -1,0 +1,6 @@
+{
+  "welcome": "Welcome {{name}}!",
+  "home": {
+    "intro": "This App is about ..."
+  }
+}

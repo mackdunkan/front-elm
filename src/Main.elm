@@ -7,6 +7,7 @@ import Spa.Document as Document exposing (Document)
 import Spa.Generated.Pages as Pages
 import Spa.Generated.Route as Route exposing (Route)
 import Url exposing (Url)
+import Utils.Route exposing (fromUrl)
 
 
 main : Program Flags Model Msg
@@ -141,8 +142,3 @@ subscriptions model =
 
 
 -- URL
-
-
-fromUrl : Url -> Route
-fromUrl =
-    Route.fromUrl >> Maybe.withDefault (Route.Lang_String__NotFound { lang = "en" })

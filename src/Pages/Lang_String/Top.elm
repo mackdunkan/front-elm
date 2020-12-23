@@ -6,6 +6,7 @@ import Css.Global exposing (descendants, media, typeSelector)
 import Css.Media as Media exposing (all, dpi, minResolution)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, href, placeholder, src, target)
+import Shared exposing (Status(..))
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url exposing (Url)
@@ -14,6 +15,7 @@ import TW.Utilities as TW
 import Theme.Element as TE
 import Theme.Icon as TI
 import Theme.Theme as TM exposing (white)
+import Translations exposing (Translations)
 import Utils.Attr as UAttr
 import Utils.Directive as DR
 
@@ -23,11 +25,11 @@ type alias Params =
 
 
 type alias Model =
-    Url Params
+    { status : Status }
 
 
-type alias Msg =
-    Never
+type Msg
+    = Never
 
 
 type alias Section =
@@ -41,39 +43,81 @@ type alias Section =
 
 page : Page Params Model Msg
 page =
-    Page.static
-        { view = view
+    Page.application
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        , save = save
+        , load = load
         }
+
+
+save : Model -> Shared.Model -> Shared.Model
+save _ shared =
+    shared
+
+
+init : Shared.Model -> Url Params -> ( Model, Cmd Msg )
+init shared { params } =
+    ( { status = shared.status }, Cmd.none )
+
+
+load : Shared.Model -> Model -> ( Model, Cmd Msg )
+load shared model =
+    ( { model | status = shared.status }, Cmd.none )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Never ->
+            ( model, Cmd.none )
 
 
 
 -- VIEW
 
 
-view : Url Params -> Document Msg
-view { params } =
-    { title = "Homepage"
-    , body =
-        [ startScreen
-        , div [ css [ atBreakpoint [ ( sm, TW.hidden ) ] ] ]
-            [ div [ css [ TM.contentWrap, TW.py_6 ] ]
-                [ formSubscribe ]
-            , div [ css [ TM.contentWrap ] ]
-                [ storeBlock
+view : Model -> Document Msg
+view model =
+    case model.status of
+        Pending ->
+            { title = "Loading", body = [ div [] [ text "Loading ... " ] ] }
+
+        Failed _ ->
+            { title = "failed", body = [ div [] [ text "Fetching translations failed" ] ] }
+
+        Initialised t ->
+            { title = "Homepage"
+            , body =
+                [ div []
+                    [ startScreen t
+                    , div [ css [ atBreakpoint [ ( sm, TW.hidden ) ] ] ]
+                        [ div [ css [ TM.contentWrap, TW.py_6 ] ]
+                            [ formSubscribe ]
+                        , div [ css [ TM.contentWrap ] ]
+                            [ storeBlock
+                            ]
+                        ]
+                    , div [ css [ TW.mt_14, TW.space_y_8 ] ]
+                        (List.indexedMap (\i x -> sectionItem i x) dataSection)
+                    ]
                 ]
-            ]
-        , div [ css [ TW.mt_14, TW.space_y_8 ] ]
-            (List.indexedMap (\i x -> sectionItem i x) dataSection)
-        ]
-    }
+            }
 
 
 
 -- TODO animate_bounce может привести к побочным эффектам!!!
 
 
-startScreen : Html msg
-startScreen =
+startScreen : Translations -> Html msg
+startScreen t =
     let
         bg : Css.Style
         bg =
@@ -165,7 +209,7 @@ startScreen =
                                     ]
                                 ]
                             ]
-                            [ text "Enjoyable finance for everyone" ]
+                            [ text <| t.welcome { name = "Jon" } ]
                         , p
                             [ css
                                 [ TW.text_sm
