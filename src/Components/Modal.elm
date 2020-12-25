@@ -114,7 +114,7 @@ view options =
                                     ]
                                 ]
                                 [ div []
-                                    [ styledInput [ placeholder "Your e-mail address" ] []
+                                    [ TE.styledInput [ placeholder "Your e-mail address" ] []
                                     ]
                                 , button
                                     [ css
@@ -132,15 +132,3 @@ view options =
 
         False ->
             div [ css [ TW.hidden ] ] []
-
-
-styledInput : List (Attribute msg) -> List (Html msg) -> Html msg
-styledInput =
-    styled input
-        [ TW.border
-        , borderColor TM.grey_300
-        , TW.rounded_xl
-        , TW.py_3_dot_5
-        , TW.px_4
-        , TW.text_lg
-        ]

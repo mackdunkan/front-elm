@@ -1,6 +1,7 @@
 module Theme.Element exposing
     ( Link
     , NotPage
+    , btnCircle_40px
     , btnStoreAndroid
     , btnStoreApple
     , comingSoonLabel
@@ -13,12 +14,13 @@ module Theme.Element exposing
     , logo
     , notPageView
     , pageTitleSection
+    , styledInput
     )
 
-import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, border3, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec, solid)
+import Css exposing (animationDuration, animationIterationCount, animationName, backgroundColor, border3, borderColor, bottom, color, disabled, focus, fontSize, hex, hover, int, lineHeight, maxWidth, ms, pseudoClass, px, sec, solid)
 import Css.Animations exposing (keyframes, property)
 import Css.Global exposing (descendants, typeSelector)
-import Html.Styled exposing (Attribute, Html, a, button, div, h1, h2, h4, img, p, span, styled, text)
+import Html.Styled exposing (Attribute, Html, a, button, div, h1, h2, h4, img, input, p, span, styled, text)
 import Html.Styled.Attributes exposing (attribute, css, href, src, target)
 import Spa.Generated.Route as Router exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, sm, xl, xs_375)
@@ -357,3 +359,34 @@ comingSoonLabel bool =
 
         False ->
             div [] []
+
+
+btnCircle_40px : Html msg -> Html msg
+btnCircle_40px icon =
+    div
+        [ css
+            [ TW.flex
+            , TW.items_center
+            , TW.justify_center
+            , TW.h_10
+            , TW.w_10
+            , TW.rounded_full
+            , TW.bg_white
+            , TM.shadow16
+            , TW.cursor_pointer
+            ]
+        ]
+        [ icon
+        ]
+
+
+styledInput : List (Attribute msg) -> List (Html msg) -> Html msg
+styledInput =
+    styled input
+        [ TW.border
+        , borderColor TM.grey_300
+        , TW.rounded_xl
+        , TW.py_3_dot_5
+        , TW.px_4
+        , TW.text_lg
+        ]

@@ -1,9 +1,10 @@
 module Pages.Lang_String.TerminalsAndBranches exposing (Model, Msg, Params, page)
 
-import Css exposing (backgroundColor, before, borderColor, checked, color, maxWidth, px)
-import Css.Global as Global exposing (adjacentSiblings, typeSelector)
+import Css exposing (Color, Style, backgroundColor, before, borderColor, checked, color, firstChild, height, maxWidth, px)
+import Css.Global as Global exposing (adjacentSiblings, typeSelector, withClass)
 import Html.Styled exposing (Html, a, div, input, label, p, span, text)
-import Html.Styled.Attributes exposing (class, css, for, href, id, name, target, type_)
+import Html.Styled.Attributes exposing (class, css, for, href, id, name, placeholder, property, style, target, type_)
+import Json.Encode as Encode
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
 import Spa.Url as Url exposing (Url)
@@ -41,11 +42,39 @@ view : Url Params -> Document Msg
 view { params } =
     { title = "TerminalsAndBranches"
     , body =
-        [ TE.pageTitleSection "Terminals and branches" ""
-        , card sectionInfo
-        , card sectionFilter
+        [ --TE.pageTitleSection "Terminals and branches" ""
+          sectionIconsSVG
+        , div [ css [ TM.shadow24 ] ] [ text "asdfasd" ]
+
+        {- [ div [ class "container-map", css [ height <| px 568, TW.relative, backgroundColor TM.grey_300, atBreakpoint [ ( sm, height <| px 696 ) ] ] ]
+               [ div [ css [ TW.w_full, TW.h_full ] ]
+                   [ div [ class "map-top", css [ TW.absolute, TW.top_0, TW.inset_x_0, TW.m_4 ] ]
+                       [ div [ css [ TW.grid, TW.gap_4, atBreakpoint [ ( sm, TW.grid_cols_2 ) ] ] ]
+                           [ TE.styledInput [ placeholder "Search", css [] ] []
+                           , div [ css [ TW.top_0, TW.right_0 ] ] [ sectionFilter ]
+                           ]
+                       ]
+                   , div [ class "map-bottom", css [ TW.absolute, TW.bottom_0, TW.inset_x_0, TW.m_4 ] ]
+                       [ div [ css [ TW.absolute, TW.bottom_0, TW.left_0 ] ] [ card sectionInfo ]
+                       , div [ css [ TW.absolute, TW.bottom_0, TW.right_0, TW.hidden, atBreakpoint [ ( sm, TW.block ) ] ] ] [ sectionZoom ]
+                       ]
+                   ]
+               ]
+           ]
+        -}
         ]
     }
+
+
+sectionIconsSVG : Html msg
+sectionIconsSVG =
+    div [ class "contentWrap", css [ withClass "contentWrap" [ TM.contentWrap ] ] ]
+        [ div [ css [ TW.grid, TW.grid_cols_3 ] ]
+            [ div [] [ iconBank TM.green, iconTerminal TM.green ]
+            , div [] [ iconBank TM.orange, iconTerminal TM.orange ]
+            , div [] [ iconBank TM.grey, iconTerminal TM.grey ]
+            ]
+        ]
 
 
 card : Html msg -> Html msg
@@ -73,7 +102,10 @@ sectionInfo =
         web =
             "www.fsm.am"
     in
-    div [ css [ TW.relative, TW.z_10, atBreakpoint [ ( lg, TW.gap_6 ) ], TW.grid, TW.gap_4 ] ]
+    div
+        [ class "sectionInfo"
+        , css [ TW.relative, TW.z_10, atBreakpoint [ ( lg, TW.gap_6 ) ], TW.grid, TW.gap_4 ]
+        ]
         [ infoItem "Address" <|
             div []
                 [ p [] [ text "53/66 Baghramyan street, Yerevan, Armenia" ]
@@ -92,7 +124,8 @@ sectionInfo =
 infoItem : String -> Html msg -> Html msg
 infoItem title descHtml =
     div
-        [ css
+        [ class "infoItem"
+        , css
             [ TW.grid
             , TW.gap_2
             ]
@@ -106,9 +139,15 @@ infoItem title descHtml =
 
 sectionFilter : Html msg
 sectionFilter =
-    div [ class "sectionFilter", css [ TW.grid, TW.gap_4, atBreakpoint [ ( sm, TW.gap_6 ) ] ] ]
-        [ checkLabel
-        , checkLabel
+    div [ class "sectionFilter", css [ TW.relative ] ]
+        [ div [ css [ TW.flex, TW.justify_end ] ] [ TE.btnCircle_40px TI.filter ]
+        , div [ css [ TW.absolute, TW.inset_0, TW.left_auto, TW.w_max, TW.mt_12 ] ]
+            [ card <|
+                div [ css [ TW.grid, TW.gap_4, atBreakpoint [ ( sm, TW.gap_6 ) ] ] ]
+                    [ checkLabel
+                    , checkLabel
+                    ]
+            ]
         ]
 
 
@@ -161,3 +200,21 @@ checkLabel =
         , span []
             [ text "Horns" ]
         ]
+
+
+sectionZoom : Html msg
+sectionZoom =
+    div [ class "sectionZoom", css [ TW.grid, TW.gap_4 ] ]
+        [ TE.btnCircle_40px TI.plus
+        , TE.btnCircle_40px TI.minus
+        ]
+
+
+iconBank : Color -> Html msg
+iconBank bgColor =
+    div [ class "iconBank", css [ color bgColor ] ] [ TI.bankGeo ]
+
+
+iconTerminal : Color -> Html msg
+iconTerminal bgColor =
+    div [ class "iconTerminal", css [ color bgColor ] ] [ TI.terminalGeo ]

@@ -5,7 +5,7 @@ import Css exposing (Style, backgroundColor, backgroundImage, backgroundPosition
 import Css.Global exposing (descendants, media, typeSelector)
 import Css.Media as Media exposing (all, dpi, minResolution)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, css, href, placeholder, src, target)
+import Html.Styled.Attributes exposing (class, css, href, id, placeholder, src, target)
 import Shared exposing (Status(..))
 import Spa.Document exposing (Document)
 import Spa.Page as Page exposing (Page)
@@ -105,8 +105,9 @@ view model =
                             [ storeBlock
                             ]
                         ]
-                    , div [ css [ TW.mt_14, TW.space_y_8 ] ]
-                        (List.indexedMap (\i x -> sectionItem i x) dataSection)
+
+                    --, div [ css [ TW.mt_14, TW.space_y_8 ] ]
+                    --    (List.indexedMap (\i x -> sectionItem i x) dataSection)
                     ]
                 ]
             }
@@ -252,7 +253,7 @@ storeBlock =
 
 btnScroll : Html msg
 btnScroll =
-    div [ css [ TW.flex, TW.justify_center, TW.mt_6 ] ]
+    div [ id "scrollBtn", css [ TW.flex, TW.justify_center, TW.mt_6 ] ]
         [ div []
             [ div [ css [ TW.hidden, TW.mb_4, TW.text_center, atBreakpoint [ ( sm, TW.block ) ] ] ] [ text "Scroll" ]
             , div

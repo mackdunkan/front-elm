@@ -137,23 +137,25 @@ view { page, toMsg } model =
 
                     _ ->
                         div []
-                            [ Components.Header.view
-                                { currentRoute = Utils.Route.fromUrl model.url
-                                , onToggleMenu = toMsg << OpenMenu
-                                , isOpenMenu = model.isOpenMenu
-                                , isOpenLang = model.isOpenLang
-                                , onToggleModal = toMsg << OpenModal
-                                , onToggleLang = toMsg << OpenLang
-                                , language = model.language
-                                , onSelectedLang = toMsg << SelectLang
-                                }
-                            , div [] page.body
-                            , Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
-                            , Components.Modal.view
-                                { onToggleModal = toMsg << OpenModal
-                                , isOpenModal = model.isOpenModal
-                                , language = model.language
-                                }
+                            [ --Components.Header.view
+                              --    { currentRoute = Utils.Route.fromUrl model.url
+                              --    , onToggleMenu = toMsg << OpenMenu
+                              --    , isOpenMenu = model.isOpenMenu
+                              --    , isOpenLang = model.isOpenLang
+                              --    , onToggleModal = toMsg << OpenModal
+                              --    , onToggleLang = toMsg << OpenLang
+                              --    , language = model.language
+                              --    , onSelectedLang = toMsg << SelectLang
+                              --    }
+                              --,
+                              div [] page.body
+
+                            --, Components.Footer.view { currentRoute = Utils.Route.fromUrl model.url }
+                            --, Components.Modal.view
+                            --    { onToggleModal = toMsg << OpenModal
+                            --    , isOpenModal = model.isOpenModal
+                            --    , language = model.language
+                            --    }
                             ]
         ]
     }

@@ -3,7 +3,7 @@ module Components.Header exposing (view, viewErrorHeader)
 import Components.Language as Language exposing (Language(..))
 import Css exposing (backgroundColor, before, borderColor, calc, color, firstChild, focus, height, hover, int, maxHeight, maxWidth, minus, num, opacity, pct, px, vw, width)
 import Html.Styled exposing (Attribute, Html, a, button, div, header, li, styled, text, ul)
-import Html.Styled.Attributes exposing (class, css, disabled, href)
+import Html.Styled.Attributes exposing (class, css, disabled, href, id)
 import Html.Styled.Events as Event exposing (onClick)
 import Spa.Generated.Route as Route exposing (Route)
 import TW.Breakpoints exposing (atBreakpoint, lg, md, sm, xl)
@@ -64,7 +64,8 @@ logoSection isOpen =
 headerSection : List (Html msg) -> Html msg
 headerSection lh =
     header
-        [ class "header"
+        [ id "header"
+        , class "header"
         , css
             [ TW.fixed
             , TW.bg_white
